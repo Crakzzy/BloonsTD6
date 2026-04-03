@@ -1,0 +1,44 @@
+package controllers;
+
+import balloon.Balloon;
+import utils.Vector2D;
+
+public class MovementController {
+    private static MovementController INSTANCE;
+
+    private MovementController() {}
+
+    public static MovementController getInstance() {
+        if (MovementController.INSTANCE == null) {
+            MovementController.INSTANCE = new MovementController();
+        }
+        return MovementController.INSTANCE;
+    }
+
+    public void move(Balloon balloon) {
+        Vector2D target = balloon.getTarget();
+
+        if (target == null) {
+            // Tu neskôr pridáš: hráč.uberZivot() a balón.vymazSa()
+            return;
+        }
+
+        Vector2D currentPos = balloon.getPosition();
+        double speed = balloon.getSpeed();
+
+        int dx = target.getX() - currentPos.getX();
+        int dy = target.getY() - currentPos.getY();
+        double distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance <= speed) {
+            balloon.updatePosition(target);
+            balloon.nextTarget();
+        } else {
+            int moveX = (int) Math.round((dx / distance) * speed);
+            int moveY = (int) Math.round((dy / distance) * speed);
+
+            Vector2D newPos = new Vector2D(currentPos.getX() + moveX, currentPos.getY() + moveY);
+            balloon.updatePosition(newPos);
+        }
+    }
+}

@@ -1,6 +1,5 @@
 package map;
 
-import core.Game;
 import core.GameMap;
 import utils.Position;
 

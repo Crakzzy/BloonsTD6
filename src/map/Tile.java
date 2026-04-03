@@ -20,11 +20,19 @@ public class Tile {
         this.position = position;
     }
 
+    public boolean moveToThisTileHorizontally() {
+        return this.type == TileType.HORIZONTAL_PATH || this.type == TileType.EXIT;
+    }
+
     public boolean placeMonkey(Monkey monkey) {
         if (this.type.canPlace() && this.monkey == null) {
             this.monkey = monkey;
             return true;
         }
         return false;
+    }
+
+    public TileType getType() {
+        return this.type;
     }
 }

@@ -5,4 +5,5 @@ public interface ITargetable {
     int getY();
     void takeDamage(int damage);
     boolean isAlive();
+    int[] getHitbox();
 }

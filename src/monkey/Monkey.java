@@ -1,24 +1,24 @@
 package monkey;
 
-import balloon.Ballon;
+import balloon.Balloon;
 import utils.ITickable;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
 public abstract class Monkey implements ITickable {
-    protected int damage;
-    protected int cost;
-    protected short range;
+    private int damage;
+    private int cost;
+    private short range;
 
-    public abstract void shoot(Ballon target);
+    public abstract void shoot(Balloon target);
 
-    public Optional<Ballon> findTarget(ArrayList<Ballon> ballons) {
+    public Optional<Balloon> findTarget(ArrayList<Balloon> balloons) {
         // TODO
         return Optional.empty();
     }
 
-    public boolean isBallonInRange(Ballon ballon) {
+    public boolean isBallonInRange(Balloon balloon) {
         // TODO
         return true;
     }

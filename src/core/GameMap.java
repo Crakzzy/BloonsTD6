@@ -1,13 +1,18 @@
 package core;
 
 import map.Tile;
+import map.TileType;
+import utils.Vector2D;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class GameMap {
     private static GameMap instance;
-    private Tile[][] grid;
+    private static Tile[][] grid;
 
     private GameMap(Tile[][] grid) {
-        this.grid = grid;
+        GameMap.grid = grid;
     }
 
     public static GameMap getInstance() {
@@ -19,5 +24,30 @@ public class GameMap {
 
     public static void load(Tile[][] grid) {
         GameMap.instance = new GameMap(grid);
+    }
+    public ArrayList<Vector2D> generatePath() {
+        ArrayList<Vector2D> path = new ArrayList<>();
+        Tile[][] grid = getGrid();
+
+        for (int r = 0; r < grid.length; r++) {
+            for (int c = 0; c < grid[r].length; c++) {
+                TileType type = grid[r][c].getType();
+
+                if (type == TileType.SPAWN ||
+                        type == TileType.BOTTOM_LEFT_CORNER ||
+                        type == TileType.BOTTOM_RIGHT_CORNER ||
+                        type == TileType.TOP_LEFT_CORNER ||
+                        type == TileType.TOP_RIGHT_CORNER ||
+                        type == TileType.EXIT) {
+
+                    path.add(new Vector2D(c * 64 + 32, r * 64 + 32));
+                }
+            }
+        }
+        return path;
+    }
+
+    public static Tile[][] getGrid() {
+        return grid;
     }
 }
