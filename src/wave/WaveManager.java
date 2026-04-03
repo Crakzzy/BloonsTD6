@@ -1,9 +1,15 @@
 package wave;
 
+import balloon.BlueBalloon;
 import balloon.RedBalloon;
+import balloon.YellowBalloon;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import core.Game;
 import fri.shapesge.Manager;
+import ui.GoldStatus;
+import ui.HealthStatus;
+import ui.WaveStatus;
 import utils.ITickable;
 
 import java.io.FileReader;
@@ -15,7 +21,11 @@ import java.util.ArrayList;
 public class WaveManager implements ITickable {
     private static WaveManager instance;
     private ArrayList<Wave> allWaves;
-    private Manager manager;
+    private final Manager manager;
+
+    private final WaveStatus waveStatus;
+    private final GoldStatus goldStatus;
+    private final HealthStatus healthStatus;
 
     private int currentWaveIdx = 0;
     private int currentGroupIdx = 0;
@@ -25,6 +35,9 @@ public class WaveManager implements ITickable {
     private WaveManager() {
         this.allWaves = new ArrayList<>();
         this.manager = new Manager();
+        this.waveStatus = WaveStatus.getInstance();
+        this.goldStatus = GoldStatus.getInstance(Game.getGold());
+        this.healthStatus = HealthStatus.getInstance(Game.getHealth());
     }
 
     public static WaveManager getInstance() {
@@ -55,25 +68,27 @@ public class WaveManager implements ITickable {
         }
 
         Wave currentWave = this.allWaves.get(this.currentWaveIdx);
-        ArrayList<EnemyGroup> groups = currentWave.getGroups();
+        ArrayList<EnemyGroup> groups = currentWave.groups();
 
         if (this.currentGroupIdx < groups.size()) {
             EnemyGroup group = groups.get(this.currentGroupIdx);
             this.frameCounter++;
 
-            if (this.frameCounter >= group.getSpacing()) {
-                this.spawnBalloon(group.getType());
+            if (this.frameCounter >= group.spacing()) {
+                this.spawnBalloon(group.type());
                 this.spawnedInGroup++;
                 this.frameCounter = 0;
 
-                if (this.spawnedInGroup >= group.getCount()) {
+                if (this.spawnedInGroup >= group.count()) {
                     this.currentGroupIdx++;
                     this.spawnedInGroup = 0;
                 }
             }
         } else {
-            // here, if i want to use start btn
             this.currentWaveIdx++;
+            this.changeWaveText();
+            Game.addGold(currentWave.goldForWave());
+            this.changeGoldText();
             this.currentGroupIdx = 0;
         }
     }
@@ -81,9 +96,21 @@ public class WaveManager implements ITickable {
     private void spawnBalloon(String type) {
         switch (type) {
             case "RED" -> new RedBalloon();
-            // case "BLUE" ->
-            // case "LEAD" ->
+            case "BLUE" -> new BlueBalloon();
+            case "YELLOW" -> new YellowBalloon();
             default -> System.out.println("Neznámy typ: " + type);
         }
+    }
+
+    private void changeWaveText() {
+        this.waveStatus.setText(String.format("Wave: %d", this.currentWaveIdx));
+    }
+
+    private void changeGoldText() {
+        this.goldStatus.setText("Gold: " + Game.getGold());
+    }
+
+    private void changeHealthText() {
+        this.healthStatus.setText("Health: " + Game.getHealth());
     }
 }

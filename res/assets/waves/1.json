@@ -2,9 +2,10 @@
   {
     "wave": 1,
     "description": "Start - len cervene",
+    "goldForWave": 100,
     "groups": [
       {
-        "type": "RED",
+        "type": "YELLOW",
         "count": 20,
         "spacing": 40
       }
@@ -13,6 +14,7 @@
   {
     "wave": 2,
     "description": "Prve modre (rychlejsie)",
+    "goldForWave": 110,
     "groups": [
       {
         "type": "RED",
@@ -28,6 +30,7 @@
   },
   {
     "wave": 3,
+    "goldForWave": 120,
     "description": "Zacinaju zelene",
     "groups": [
       {
@@ -45,6 +48,7 @@
   {
     "wave": 4,
     "description": "Rychly rush - zlte!",
+    "goldForWave": 130,
     "groups": [
       {
         "type": "GREEN",
@@ -61,6 +65,7 @@
   {
     "wave": 5,
     "description": "Mixed pack",
+    "goldForWave": 140,
     "groups": [
       {
         "type": "RED",
@@ -77,6 +82,7 @@
   {
     "wave": 6,
     "description": "Lead introduction (Sive)",
+    "goldForWave": 200,
     "groups": [
       {
         "type": "LEAD",
@@ -93,6 +99,7 @@
   {
     "wave": 7,
     "description": "Heavy Leads",
+    "goldForWave": 250,
     "groups": [
       {
         "type": "LEAD",
@@ -109,6 +116,7 @@
   {
     "wave": 8,
     "description": "Rainbow prep? (Zatial mix)",
+    "goldForWave": 300,
     "groups": [
       {
         "type": "YELLOW",
@@ -125,6 +133,7 @@
   {
     "wave": 9,
     "description": "Lead & Yellow rush",
+    "goldForWave": 350,
     "groups": [
       {
         "type": "LEAD",
@@ -141,6 +150,7 @@
   {
     "wave": 10,
     "description": "Final Regrow (Simulacia)",
+    "goldForWave": 500,
     "groups": [
       {
         "type": "LEAD",

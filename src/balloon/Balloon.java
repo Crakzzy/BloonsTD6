@@ -14,27 +14,29 @@ public abstract class Balloon implements ITickable, ITargetable {
     private short speed;
     private int hp;
     private Vector2D position;
-    private Image image;
+    private final Image image;
     private final Manager manager = new Manager();
+    private final int goldForKill;
 
-    private List<Vector2D> waypoints;
+    private final List<Vector2D> waypoints;
     private int currentTargetIndex = 0;
 
     private static final MovementController movementController = MovementController.getInstance();
 
-    public Balloon(short speed, int hp, String imagePath) {
+    public Balloon(short speed, int hp, String imageName, int goldForKill) {
         this.speed = speed;
         this.hp = hp;
+        this.goldForKill = goldForKill;
 
         this.waypoints = GameMap.getInstance().generatePath();
 
         if (this.waypoints != null && !this.waypoints.isEmpty()) {
-            this.position = this.waypoints.get(0);
+            this.position = this.waypoints.getFirst();
         } else {
             this.position = new Vector2D(0, 0);
         }
 
-        this.image = new Image(imagePath);
+        this.image = new Image("res/assets/balloons/" + imageName + ".png");
         updateImagePosition();
         this.image.makeVisible();
 
@@ -84,6 +86,21 @@ public abstract class Balloon implements ITickable, ITargetable {
                 getX() - 32, getY() - 32, // Top-Left
                 getX() + 32, getY() + 32  // Bottom-Right
         };
+    }
+
+    @Override
+    public boolean isAlive() {
+        return this.hp > 0;
+    }
+
+    @Override
+    public void takeDamage(int damage) {
+        int nextHp = this.getHp() - damage;
+        this.setHp(Math.max(nextHp, 0));
+
+        if (!isAlive()) {
+            this.getImage().makeInvisible();
+        }
     }
 
     public short getSpeed() {
