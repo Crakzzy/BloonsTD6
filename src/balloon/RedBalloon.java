@@ -2,7 +2,7 @@ package balloon;
 
 public class RedBalloon extends Balloon {
     public RedBalloon() {
-        super((short) 4, 20, "res/assets/balloons/red.png");
+        super((short) 2, 20, "res/assets/balloons/red.png");
     }
 
     @Override
