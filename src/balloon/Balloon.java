@@ -1,19 +1,19 @@
 package balloon;
 
 import controllers.MovementController;
+import core.GameMap;
 import fri.shapesge.Image;
 import fri.shapesge.Manager;
+import utils.GameObject;
 import utils.ITargetable;
 import utils.ITickable;
 import utils.Vector2D;
-import core.GameMap;
 
 import java.util.List;
 
-public abstract class Balloon implements ITickable, ITargetable {
+public abstract class Balloon extends GameObject implements ITickable, ITargetable {
     private short speed;
     private int hp;
-    private Vector2D position;
     private final Image image;
     private final Manager manager = new Manager();
     private final int goldForKill;
@@ -24,21 +24,21 @@ public abstract class Balloon implements ITickable, ITargetable {
     private static final MovementController movementController = MovementController.getInstance();
 
     public Balloon(short speed, int hp, String imageName, int goldForKill) {
+        Vector2D position;
+        List<Vector2D> waypoints = GameMap.getInstance().generatePath();
+
+        if (waypoints != null && !waypoints.isEmpty()) {
+            position = waypoints.getFirst();
+        } else {
+            position = new Vector2D(0, 0);
+        }
+
+        super(position, this.image = new Image("res/assets/balloons/" + imageName + ".png"), 0);
+
+        this.waypoints = waypoints;
         this.speed = speed;
         this.hp = hp;
         this.goldForKill = goldForKill;
-
-        this.waypoints = GameMap.getInstance().generatePath();
-
-        if (this.waypoints != null && !this.waypoints.isEmpty()) {
-            this.position = this.waypoints.getFirst();
-        } else {
-            this.position = new Vector2D(0, 0);
-        }
-
-        this.image = new Image("res/assets/balloons/" + imageName + ".png");
-        updateImagePosition();
-        this.image.makeVisible();
 
         this.manager.manageObject(this);
     }
@@ -46,17 +46,6 @@ public abstract class Balloon implements ITickable, ITargetable {
     @Override
     public void tick() {
         movementController.move(this);
-    }
-
-    public void updatePosition(Vector2D newPos) {
-        this.position = newPos;
-        updateImagePosition();
-    }
-
-    private void updateImagePosition() {
-        if (this.image != null && this.position != null) {
-            this.image.changePosition(this.position.getX() - 32, this.position.getY() - 32);
-        }
     }
 
     public Vector2D getTarget() {
@@ -71,20 +60,12 @@ public abstract class Balloon implements ITickable, ITargetable {
     }
 
     @Override
-    public int getX() {
-        return this.position.getX();
-    }
-
-    @Override
-    public int getY() {
-        return this.position.getY();
-    }
-
-    @Override
     public int[] getHitbox() {
+        int x = this.getPosition().getX();
+        int y = this.getPosition().getY();
         return new int[]{
-                getX() - 32, getY() - 32, // Top-Left
-                getX() + 32, getY() + 32  // Bottom-Right
+                x - 32, y - 32, // Top-Left
+                x + 32, y + 32  // Bottom-Right
         };
     }
 
@@ -99,7 +80,7 @@ public abstract class Balloon implements ITickable, ITargetable {
         this.setHp(Math.max(nextHp, 0));
 
         if (!isAlive()) {
-            this.getImage().makeInvisible();
+            this.hide();
         }
     }
 
@@ -117,18 +98,6 @@ public abstract class Balloon implements ITickable, ITargetable {
 
     public void setHp(int hp) {
         this.hp = hp;
-    }
-
-    public Vector2D getPosition() {
-        return position;
-    }
-
-    public void setPosition(Vector2D position) {
-        this.position = position;
-    }
-
-    public Image getImage() {
-        return image;
     }
 
     public Manager getManager() {

@@ -25,7 +25,8 @@ public class MapLoader {
             for (int row = 0; row < rows; row++) {
                 String[] cells = lines[row].split(",");
                 for (int col = 0; col < cols; col++) {
-                    grid[row][col] = new Tile(TileType.from(cells[col].trim()), new Position(row * 64, col * 64));
+                    Position gridPos = new Position(row, col);
+                    grid[row][col] = new Tile(TileType.from(cells[col].trim()), gridPos);
                 }
             }
             GameMap.load(grid);

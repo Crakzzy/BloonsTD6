@@ -10,7 +10,8 @@ public enum TileType {
     BOTTOM_LEFT_CORNER("path_vertical.png", false),
     BOTTOM_RIGHT_CORNER("path_vertical.png", false),
     TOP_LEFT_CORNER("path_vertical.png", false),
-    TOP_RIGHT_CORNER("path_vertical.png", false);
+    TOP_RIGHT_CORNER("path_vertical.png", false),
+    EMPTY("empty.png", false);
 
     private final String imagePath;
     private final boolean placeableOn;
@@ -39,6 +40,7 @@ public enum TileType {
             case "CTR" -> TOP_RIGHT_CORNER;
             case "W" -> WATER;
             case "S" -> SPAWN;
+            case "X" -> EMPTY;
             case "E" -> EXIT;
             default -> throw new IllegalArgumentException("Unknown tile: " + code);
         };

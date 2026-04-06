@@ -1,6 +1,6 @@
 package utils;
 
 public interface IPlaceable {
-    void place(Position position);
+    void place(int x, int y);
     void remove();
 }

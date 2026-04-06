@@ -2,9 +2,9 @@ package core;
 
 import map.Tile;
 import map.TileType;
+import utils.Position;
 import utils.Vector2D;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class GameMap {
@@ -25,6 +25,7 @@ public class GameMap {
     public static void load(Tile[][] grid) {
         GameMap.instance = new GameMap(grid);
     }
+
     public ArrayList<Vector2D> generatePath() {
         ArrayList<Vector2D> path = new ArrayList<>();
         Tile[][] grid = getGrid();
@@ -49,5 +50,12 @@ public class GameMap {
 
     public static Tile[][] getGrid() {
         return grid;
+    }
+
+    public static TileType getTileType(int row, int col) {
+        if (row < 0 || row >= grid.length || col < 0 || col >= grid[0].length) {
+            return TileType.EMPTY;
+        }
+        return grid[row][col].getType();
     }
 }

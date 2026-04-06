@@ -2,10 +2,10 @@ package ui;
 
 import fri.shapesge.FontStyle;
 import fri.shapesge.TextBlock;
-import utils.IHideable;
+import utils.IUIElement;
 import utils.Vector2D;
 
-public abstract class Status implements IHideable {
+public abstract class Status implements IUIElement {
     private TextBlock textBlock;
     private Vector2D position;
     private String label;

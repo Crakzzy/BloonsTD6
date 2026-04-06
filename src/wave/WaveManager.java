@@ -1,6 +1,7 @@
 package wave;
 
 import balloon.BlueBalloon;
+import balloon.GreenBalloon;
 import balloon.RedBalloon;
 import balloon.YellowBalloon;
 import com.google.gson.Gson;
@@ -98,6 +99,7 @@ public class WaveManager implements ITickable {
             case "RED" -> new RedBalloon();
             case "BLUE" -> new BlueBalloon();
             case "YELLOW" -> new YellowBalloon();
+            case "GREEN" -> new GreenBalloon();
             default -> System.out.println("Neznámy typ: " + type);
         }
     }

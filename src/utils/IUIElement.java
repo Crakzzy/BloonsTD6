@@ -1,6 +1,6 @@
 package utils;
 
-public interface IHideable {
+public interface IUIElement {
     void hide();
     void show();
 }
