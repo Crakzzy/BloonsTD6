@@ -1,9 +1,6 @@
 package wave;
 
-import balloon.BlueBalloon;
-import balloon.GreenBalloon;
-import balloon.RedBalloon;
-import balloon.YellowBalloon;
+import balloon.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import core.Game;
@@ -13,11 +10,13 @@ import ui.HealthStatus;
 import ui.WaveStatus;
 import utils.ITickable;
 
+import javax.swing.text.html.Option;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class WaveManager implements ITickable {
     private static WaveManager instance;
@@ -51,7 +50,8 @@ public class WaveManager implements ITickable {
     public void loadWaves(String filePath) {
         Gson gson = new Gson();
         try (Reader reader = new FileReader("res/assets/waves/" + filePath + ".json")) {
-            Type arrayListType = new TypeToken<ArrayList<Wave>>(){}.getType();
+            Type arrayListType = new TypeToken<ArrayList<Wave>>() {
+            }.getType();
             this.allWaves = gson.fromJson(reader, arrayListType);
 
             this.manager.stopManagingObject(this);
@@ -76,7 +76,13 @@ public class WaveManager implements ITickable {
             this.frameCounter++;
 
             if (this.frameCounter >= group.spacing()) {
-                this.spawnBalloon(group.type());
+                Optional<Balloon> spawnedBalloon = this.spawnBalloon(group.type());
+                if (spawnedBalloon.isEmpty()) {
+                    return;
+                }
+
+                Game.addBalloon(spawnedBalloon.get());
+
                 this.spawnedInGroup++;
                 this.frameCounter = 0;
 
@@ -94,14 +100,15 @@ public class WaveManager implements ITickable {
         }
     }
 
-    private void spawnBalloon(String type) {
-        switch (type) {
+    private Optional<Balloon> spawnBalloon(String type) {
+        Balloon balloon = switch (type) {
             case "RED" -> new RedBalloon();
             case "BLUE" -> new BlueBalloon();
             case "YELLOW" -> new YellowBalloon();
             case "GREEN" -> new GreenBalloon();
-            default -> System.out.println("Neznámy typ: " + type);
-        }
+            default -> null;
+        };
+        return balloon != null ? Optional.of(balloon) : Optional.empty();
     }
 
     private void changeWaveText() {

@@ -3,6 +3,7 @@ package monkey;
 import balloon.Balloon;
 import core.Game;
 import fri.shapesge.Image;
+import fri.shapesge.Manager;
 import utils.GameObject;
 import utils.ITickable;
 import utils.Vector2D;
@@ -17,6 +18,7 @@ public abstract class Monkey extends GameObject implements ITickable {
     private final int range;
     private int ticksBetweenShots;
     private int currentCooldownBetweenShots = 0;
+    private Manager manager;
 
     private static final int MINIMAL_MONKEY_MARGIN_PX = 1;
 
@@ -26,19 +28,28 @@ public abstract class Monkey extends GameObject implements ITickable {
         this.cost = cost;
         this.range = range;
         this.ticksBetweenShots = 60 / shotsPerSecond;
+
+        this.manager = new Manager();
+        this.manager.manageObject(this);
     }
 
     @Override
     public void tick() {
-        if (this.currentCooldownBetweenShots > 0) {
-            this.currentCooldownBetweenShots--;
-            return;
-        }
-
         Optional<Balloon> target = this.findTarget(Game.getBalloons());
-        if (target.isEmpty()) return;
+        System.out.println("Balloons size " + Game.getBalloons().size());
 
-        this.shoot(target.get());
+        if (target.isPresent()) {
+            this.rotateTowards(target.get().getPosition());
+
+            if (this.currentCooldownBetweenShots > 0) {
+                this.currentCooldownBetweenShots--;
+            } else {
+                this.shoot(target.get());
+                this.currentCooldownBetweenShots = this.ticksBetweenShots;
+            }
+        } else if (this.currentCooldownBetweenShots > 0) {
+            this.currentCooldownBetweenShots--;
+        }
     }
 
     public abstract void shoot(Balloon target);

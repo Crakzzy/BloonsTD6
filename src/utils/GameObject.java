@@ -24,12 +24,6 @@ public abstract class GameObject {
         return this.position;
     }
 
-    public void changeAngle(int newAngle) {
-        this.angle = newAngle;
-        this.image.changeAngle(newAngle);
-        this.show();
-    }
-
     public void show() {
         this.image.makeVisible();
     }
@@ -47,6 +41,16 @@ public abstract class GameObject {
             }
             this.position = newPosition;
         }
+    }
+
+    public void rotateTowards(Vector2D targetPos) {
+        double deltaX = targetPos.getX() - this.position.getX();
+        double deltaY = targetPos.getY() - this.position.getY();
+
+        double angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
+
+        this.image.changeAngle((int)angle + 90);
+        this.show();
     }
 
     public Image getImage() {
