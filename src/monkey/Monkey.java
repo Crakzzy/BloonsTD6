@@ -36,7 +36,6 @@ public abstract class Monkey extends GameObject implements ITickable {
     @Override
     public void tick() {
         Optional<Balloon> target = this.findTarget(Game.getBalloons());
-        System.out.println("Balloons size " + Game.getBalloons().size());
 
         if (target.isPresent()) {
             this.rotateTowards(target.get().getPosition());

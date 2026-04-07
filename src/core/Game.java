@@ -6,9 +6,12 @@ import map.MapLoader;
 import monkey.DartMonkey;
 import monkey.Monkey;
 import monkey.MonkeySpawner;
+import projectile.Projectile;
+import projectile.dartMonkey.Dart;
 import ui.GoldStatus;
 import ui.HealthStatus;
 import ui.WaveStatus;
+import utils.Vector2D;
 import wave.WaveManager;
 
 import java.util.ArrayList;
@@ -28,6 +31,7 @@ public class Game {
 
     private static final ArrayList<Monkey> monkeys = new ArrayList<>();
     private static final ArrayList<Balloon> balloons = new ArrayList<>();
+    private static final ArrayList<Projectile> projectiles = new ArrayList<>();
 
     private static int gold;
     private static int health;
@@ -68,6 +72,15 @@ public class Game {
 
     public static List<Balloon> getBalloons() {
         return Collections.unmodifiableList(balloons);
+    }
+
+    public static void addProjectile(Dart dart) {
+        Game.projectiles.add(dart);
+    }
+
+    public static void removeProjectile(Projectile projectile) {
+        projectile.hide();
+        Game.projectiles.remove(projectile);
     }
 
     public void place(int x, int y) {

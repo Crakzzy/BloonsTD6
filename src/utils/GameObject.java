@@ -43,14 +43,23 @@ public abstract class GameObject {
         }
     }
 
-    public void rotateTowards(Vector2D targetPos) {
-        double deltaX = targetPos.getX() - this.position.getX();
-        double deltaY = targetPos.getY() - this.position.getY();
+    public int rotateTowards(Vector2D targetPos) {
+        double dx = targetPos.getX() - this.position.getX();
+        double dy = targetPos.getY() - this.position.getY();
 
-        double angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
+        double radians = Math.atan2(dy, dx);
 
-        this.image.changeAngle((int)angle + 90);
-        this.show();
+        double degrees = Math.toDegrees(radians);
+
+        int finalAngle = (int) Math.round(degrees) + 90;
+
+        this.image.changeAngle(finalAngle);
+
+        return finalAngle;
+    }
+
+    public int getAngle() {
+        return this.angle;
     }
 
     public Image getImage() {

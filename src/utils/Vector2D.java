@@ -1,8 +1,8 @@
 package utils;
 
 public class Vector2D {
-    private final int x;
-    private final int y;
+    private int x;
+    private int y;
 
     public Vector2D(int x, int y) {
         this.x = x;
@@ -10,11 +10,24 @@ public class Vector2D {
     }
 
     public int getX() {
-        return this.x;
+        return x;
     }
 
     public int getY() {
-        return this.y;
+        return y;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void add(int dx, int dy) {
+        this.x += dx;
+        this.y += dy;
     }
 
     public Vector2D add(Vector2D other) {
