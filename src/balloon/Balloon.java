@@ -1,9 +1,12 @@
 package balloon;
 
 import controllers.MovementController;
+import core.Game;
 import core.GameMap;
 import fri.shapesge.Image;
 import fri.shapesge.Manager;
+import map.Tile;
+import map.TileType;
 import utils.GameObject;
 import utils.ITargetable;
 import utils.ITickable;
@@ -22,8 +25,9 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
     private int currentTargetIndex = 0;
 
     private static final MovementController movementController = MovementController.getInstance();
+    private final int hpToTakeOnEnd;
 
-    public Balloon(short speed, int hp, String imageName, int goldForKill) {
+    public Balloon(short speed, int hp, String imageName, int goldForKill, int hpToTakeOnEnd) {
         Vector2D position;
         List<Vector2D> waypoints = GameMap.getInstance().generatePath();
 
@@ -39,6 +43,7 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
         this.speed = speed;
         this.hp = hp;
         this.goldForKill = goldForKill;
+        this.hpToTakeOnEnd = hpToTakeOnEnd;
 
         this.manager.manageObject(this);
     }
@@ -80,8 +85,23 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
         this.setHp(Math.max(nextHp, 0));
 
         if (!isAlive()) {
+            Game.addGold(this.goldForKill);
             this.hide();
         }
+    }
+
+    public boolean hasReachedEnd() {
+        int col = (this.getPosition().getX()) / 64;
+        int row = (this.getPosition().getY()) / 64;
+
+        Tile[][] mapTiles = GameMap.getGrid();
+
+        if (row < 0 || row >= mapTiles.length || col < 0 || col >= mapTiles[0].length) {
+            return false;
+        }
+
+        Tile currentTile = mapTiles[row][col];
+        return currentTile != null && currentTile.getType() == TileType.EXIT;
     }
 
     public short getSpeed() {
@@ -102,5 +122,13 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
 
     public Manager getManager() {
         return manager;
+    }
+
+    public int getHpToTakeOnEnd() {
+        return this.hpToTakeOnEnd;
+    }
+
+    public void stopManaging() {
+        this.manager.stopManagingObject(this);
     }
 }

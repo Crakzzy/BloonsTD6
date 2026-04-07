@@ -1,6 +1,7 @@
 package controllers;
 
 import balloon.Balloon;
+import core.Game;
 import utils.Vector2D;
 
 public class MovementController {
@@ -39,6 +40,11 @@ public class MovementController {
 
             Vector2D newPos = new Vector2D(currentPos.getX() + moveX, currentPos.getY() + moveY);
             balloon.updatePosition(newPos);
+        }
+        
+        if (balloon.hasReachedEnd()) {
+            Game.removeBallon(balloon);
+            Game.changeHealth(Game.getHealth() - balloon.getHpToTakeOnEnd());
         }
     }
 }

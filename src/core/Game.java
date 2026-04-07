@@ -24,9 +24,9 @@ import java.util.function.Predicate;
 public class Game {
     private GameMap map;
     private WaveManager waveManager;
-    private WaveStatus waveStatus;
-    private GoldStatus goldStatus;
-    private HealthStatus healthStatus;
+    private static WaveStatus waveStatus;
+    private static GoldStatus goldStatus;
+    private static HealthStatus healthStatus;
     private Manager manager;
 
     private static final ArrayList<Monkey> monkeys = new ArrayList<>();
@@ -43,9 +43,9 @@ public class Game {
         Game.gold = 500;
         Game.health = 150;
 
-        this.waveStatus = WaveStatus.getInstance();
-        this.goldStatus = GoldStatus.getInstance(Game.gold);
-        this.healthStatus = HealthStatus.getInstance(Game.health);
+        waveStatus = WaveStatus.getInstance();
+        goldStatus = GoldStatus.getInstance(Game.gold);
+        healthStatus = HealthStatus.getInstance(Game.health);
 
         this.waveManager = WaveManager.getInstance();
         this.waveManager.loadWaves("1");
@@ -56,6 +56,7 @@ public class Game {
 
     public static void addGold(int amount) {
         Game.gold += amount;
+        Game.goldStatus.setText("Gold: " + Game.gold);
     }
 
     public static int getGold() {
@@ -64,10 +65,11 @@ public class Game {
 
     public static void changeHealth(int newHealth) {
         Game.health = newHealth;
+        Game.healthStatus.setText("Health: " + newHealth);
     }
 
     public static int getHealth() {
-        return Game.gold;
+        return Game.health;
     }
 
     public static List<Balloon> getBalloons() {
@@ -81,6 +83,12 @@ public class Game {
     public static void removeProjectile(Projectile projectile) {
         projectile.hide();
         Game.projectiles.remove(projectile);
+    }
+
+    public static void removeBallon(Balloon balloon) {
+        balloon.hide();
+        balloon.stopManaging();
+        Game.balloons.remove(balloon);
     }
 
     public void place(int x, int y) {

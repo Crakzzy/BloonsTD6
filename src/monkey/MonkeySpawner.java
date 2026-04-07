@@ -3,7 +3,6 @@ package monkey;
 import core.Game;
 import core.GameMap;
 import map.TileType;
-import utils.Position;
 import utils.Vector2D;
 
 import java.util.Optional;
@@ -16,9 +15,7 @@ public class MonkeySpawner {
         int gridRow = y / 64;
 
         TileType terrain = GameMap.getTileType(gridRow, gridCol);
-        
-        System.out.println("Trying to place " + name + " at pixel (" + x + ", " + y + ") which is grid (" + gridRow + ", " + gridCol + ") and terrain: " + terrain);
-        
+
         if (!terrain.canPlace()) {
             System.out.println("Tu nemôžeš stavať, je tu: " + terrain);
             return Optional.empty();
