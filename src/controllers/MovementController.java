@@ -4,10 +4,13 @@ import balloon.Balloon;
 import core.Game;
 import utils.Vector2D;
 
+import java.util.Optional;
+
 public class MovementController {
     private static MovementController INSTANCE;
 
-    private MovementController() {}
+    private MovementController() {
+    }
 
     public static MovementController getInstance() {
         if (MovementController.INSTANCE == null) {
@@ -17,22 +20,21 @@ public class MovementController {
     }
 
     public void move(Balloon balloon) {
-        Vector2D target = balloon.getTarget();
+        Optional<Vector2D> target = balloon.getTarget();
 
-        if (target == null) {
-            // Tu neskôr pridáš: hráč.uberZivot() a balón.vymazSa()
+        if (target.isEmpty()) {
             return;
         }
 
         Vector2D currentPos = balloon.getPosition();
         double speed = balloon.getSpeed();
 
-        int dx = target.getX() - currentPos.getX();
-        int dy = target.getY() - currentPos.getY();
+        int dx = target.get().getX() - currentPos.getX();
+        int dy = target.get().getY() - currentPos.getY();
         double distance = Math.sqrt(dx * dx + dy * dy);
 
         if (distance <= speed) {
-            balloon.updatePosition(target);
+            balloon.updatePosition(target.get());
             balloon.nextTarget();
         } else {
             int moveX = (int) Math.round((dx / distance) * speed);
@@ -41,7 +43,7 @@ public class MovementController {
             Vector2D newPos = new Vector2D(currentPos.getX() + moveX, currentPos.getY() + moveY);
             balloon.updatePosition(newPos);
         }
-        
+
         if (balloon.hasReachedEnd()) {
             Game.removeBallon(balloon);
             Game.changeHealth(Game.getHealth() - balloon.getHpToTakeOnEnd());

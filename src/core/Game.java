@@ -3,15 +3,14 @@ package core;
 import balloon.Balloon;
 import fri.shapesge.Manager;
 import map.MapLoader;
-import monkey.DartMonkey;
 import monkey.Monkey;
 import monkey.MonkeySpawner;
 import projectile.Projectile;
 import projectile.dartMonkey.Dart;
-import ui.GoldStatus;
-import ui.HealthStatus;
-import ui.WaveStatus;
-import utils.Vector2D;
+import ui.pickers.MonkeyPickersFactory;
+import ui.status.GoldStatus;
+import ui.status.HealthStatus;
+import ui.status.WaveStatus;
 import wave.WaveManager;
 
 import java.util.ArrayList;
@@ -23,15 +22,16 @@ import java.util.function.Predicate;
 
 public class Game {
     private GameMap map;
-    private WaveManager waveManager;
+
     private static WaveStatus waveStatus;
     private static GoldStatus goldStatus;
     private static HealthStatus healthStatus;
-    private Manager manager;
 
     private static final ArrayList<Monkey> monkeys = new ArrayList<>();
     private static final ArrayList<Balloon> balloons = new ArrayList<>();
     private static final ArrayList<Projectile> projectiles = new ArrayList<>();
+
+    private static String currentlySelectedMonkey = null;
 
     private static int gold;
     private static int health;
@@ -47,11 +47,14 @@ public class Game {
         goldStatus = GoldStatus.getInstance(Game.gold);
         healthStatus = HealthStatus.getInstance(Game.health);
 
-        this.waveManager = WaveManager.getInstance();
-        this.waveManager.loadWaves("1");
+        WaveManager waveManager = WaveManager.getInstance();
+        waveManager.loadWaves("1");
 
-        this.manager = new Manager();
-        this.manager.manageObject(this);
+        Manager manager = new Manager();
+        manager.manageObject(this);
+
+        MonkeyPickersFactory monkeyPickersFactory = MonkeyPickersFactory.getInstance();
+        monkeyPickersFactory.createPickers();
     }
 
     public static void addGold(int amount) {
@@ -91,8 +94,16 @@ public class Game {
         Game.balloons.remove(balloon);
     }
 
+    public static String getCurrentlySelectedMonkey() {
+        return currentlySelectedMonkey;
+    }
+
+    public static void setCurrentlySelectedMonkey(String currentlySelectedMonkey) {
+        Game.currentlySelectedMonkey = currentlySelectedMonkey;
+    }
+
     public void place(int x, int y) {
-        Optional<Monkey> monkey = MonkeySpawner.tryPlaceMonkey("dart", x, y);
+        Optional<Monkey> monkey = MonkeySpawner.tryPlaceMonkey(Game.currentlySelectedMonkey, x, y);
 
         if (monkey.isEmpty()) return;
         Game.addMonkey(monkey.get());

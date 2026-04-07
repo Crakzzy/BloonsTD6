@@ -13,11 +13,11 @@ import utils.ITickable;
 import utils.Vector2D;
 
 import java.util.List;
+import java.util.Optional;
 
 public abstract class Balloon extends GameObject implements ITickable, ITargetable {
     private short speed;
     private int hp;
-    private final Image image;
     private final Manager manager = new Manager();
     private final int goldForKill;
 
@@ -37,7 +37,7 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
             position = new Vector2D(0, 0);
         }
 
-        super(position, this.image = new Image("res/assets/balloons/" + imageName + ".png"), 0);
+        super(position, new Image("res/assets/balloons/" + imageName + ".png"), 0);
 
         this.waypoints = waypoints;
         this.speed = speed;
@@ -53,11 +53,11 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
         movementController.move(this);
     }
 
-    public Vector2D getTarget() {
+    public Optional<Vector2D> getTarget() {
         if (waypoints != null && currentTargetIndex < waypoints.size()) {
-            return waypoints.get(currentTargetIndex);
+            return Optional.ofNullable(waypoints.get(currentTargetIndex));
         }
-        return null;
+        return Optional.empty();
     }
 
     public void nextTarget() {
@@ -108,20 +108,12 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
         return speed;
     }
 
-    public void setSpeed(short speed) {
-        this.speed = speed;
-    }
-
     public int getHp() {
         return hp;
     }
 
     public void setHp(int hp) {
         this.hp = hp;
-    }
-
-    public Manager getManager() {
-        return manager;
     }
 
     public int getHpToTakeOnEnd() {

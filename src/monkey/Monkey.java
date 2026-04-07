@@ -8,7 +8,6 @@ import utils.GameObject;
 import utils.ITickable;
 import utils.Vector2D;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +21,7 @@ public abstract class Monkey extends GameObject implements ITickable {
 
     private static final int MINIMAL_MONKEY_MARGIN_PX = 1;
 
-    public Monkey(int damage, int cost, int range, int shotsPerSecond, String imageName, Vector2D position) {
+    public Monkey(int damage, int cost, int range, int shotsPerSecond, java.lang.String imageName, Vector2D position) {
         super(position, new Image("res/assets/monkeys/" + imageName + ".png"), 0);
         this.damage = damage;
         this.cost = cost;

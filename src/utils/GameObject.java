@@ -6,7 +6,7 @@ import fri.shapesge.Image;
 public abstract class GameObject {
     private Vector2D position;
     private final Image image;
-    private int angle;
+    private final int angle;
 
     public GameObject(Vector2D position, Image image, int angle) {
         this.position = position;

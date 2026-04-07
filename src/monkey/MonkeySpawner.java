@@ -17,18 +17,20 @@ public class MonkeySpawner {
         TileType terrain = GameMap.getTileType(gridRow, gridCol);
 
         if (!terrain.canPlace()) {
-            System.out.println("Tu nemôžeš stavať, je tu: " + terrain);
             return Optional.empty();
         }
 
         boolean collision = Game.anyMonkey(m -> m.wouldNewMonkeyConflict(pixelPos));
         if (collision) {
-            System.out.println("Príliš blízko inej opice!");
             return Optional.empty();
         }
 
         return switch (name) {
             case "dart" -> Optional.of(new DartMonkey(pixelPos));
+            case "ice" -> Optional.of(new IceMonkey(pixelPos));
+            case "cannon" -> Optional.of(new Cannon(pixelPos));
+            case "sniper" -> Optional.of(new SniperMonkey(pixelPos));
+            case "dartling" -> Optional.of(new DartlingMonkey(pixelPos));
             default -> Optional.empty();
         };
     }

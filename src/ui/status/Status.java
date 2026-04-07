@@ -1,18 +1,15 @@
-package ui;
+package ui.status;
 
 import fri.shapesge.FontStyle;
 import fri.shapesge.TextBlock;
-import utils.IUIElement;
 import utils.Vector2D;
 
-public abstract class Status implements IUIElement {
-    private TextBlock textBlock;
-    private Vector2D position;
-    private String label;
+public abstract class Status {
+    private final TextBlock textBlock;
+    private final Vector2D position;
 
     public Status(Vector2D position, String label) {
         this.position = position;
-        this.label = label;
         this.textBlock = new TextBlock(label, this.position.getX(), this.position.getY());
         this.textBlock.changeFont("Arial", FontStyle.BOLD, 24);
         this.textBlock.makeVisible();
@@ -22,12 +19,10 @@ public abstract class Status implements IUIElement {
         this.textBlock.changeText(newText);
     }
 
-    @Override
     public void hide() {
         this.textBlock.makeInvisible();
     }
 
-    @Override
     public void show() {
         this.textBlock.makeVisible();
     }

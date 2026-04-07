@@ -5,7 +5,7 @@ import core.Game;
 import projectile.dartMonkey.Dart;
 import utils.Vector2D;
 
-public class DartMonkey extends Monkey{
+public class DartMonkey extends Monkey {
     public DartMonkey(Vector2D position) {
         super(5, 250, 100, 1,"dart", position);
     }

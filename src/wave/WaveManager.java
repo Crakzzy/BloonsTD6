@@ -5,12 +5,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import core.Game;
 import fri.shapesge.Manager;
-import ui.GoldStatus;
-import ui.HealthStatus;
-import ui.WaveStatus;
+import ui.status.GoldStatus;
+import ui.status.HealthStatus;
+import ui.status.WaveStatus;
 import utils.ITickable;
 
-import javax.swing.text.html.Option;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;

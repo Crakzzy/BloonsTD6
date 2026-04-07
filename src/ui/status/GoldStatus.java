@@ -1,4 +1,4 @@
-package ui;
+package ui.status;
 
 import utils.Vector2D;
 
