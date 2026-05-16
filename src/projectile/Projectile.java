@@ -10,11 +10,12 @@ import utils.*;
 public abstract class Projectile extends GameObject implements ITickable {
     private int damage;
     private int speed;
-    private Manager manager;
-    private Balloon target;
+    private final Manager manager;
+    private final Balloon target;
 
     public Projectile(int damage, int speed, String imageName, Vector2D position, Balloon target) {
         super(position, new Image("res/assets/projectiles/" + imageName + ".png"), 0);
+        super.hide();
         this.damage = damage;
         this.speed = speed;
         this.target = target;
@@ -29,6 +30,8 @@ public abstract class Projectile extends GameObject implements ITickable {
             Game.removeProjectile(this);
             return;
         }
+
+        super.show();
 
         int currentAngleInt = this.rotateTowards(this.target.getPosition());
 
@@ -50,6 +53,7 @@ public abstract class Projectile extends GameObject implements ITickable {
     }
     private void hasHitTarget(Balloon target) {
         target.takeDamage(this.damage);
+        this.manager.stopManagingObject(this);
         Game.removeProjectile(this);
     }
 }

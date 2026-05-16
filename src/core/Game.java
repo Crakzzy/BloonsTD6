@@ -6,7 +6,6 @@ import map.MapLoader;
 import monkey.Monkey;
 import monkey.MonkeySpawner;
 import projectile.Projectile;
-import projectile.dartMonkey.Dart;
 import ui.pickers.MonkeyPickersFactory;
 import ui.status.GoldStatus;
 import ui.status.HealthStatus;
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class Game {
@@ -79,8 +77,8 @@ public class Game {
         return Collections.unmodifiableList(balloons);
     }
 
-    public static void addProjectile(Dart dart) {
-        Game.projectiles.add(dart);
+    public static void addProjectile(Projectile projectile) {
+        Game.projectiles.add(projectile);
     }
 
     public static void removeProjectile(Projectile projectile) {
@@ -115,18 +113,6 @@ public class Game {
 
     public static void addBalloon(Balloon ballon) {
         balloons.add(ballon);
-    }
-
-    public static void forEachMonkey(Consumer<Monkey> action) {
-        for (Monkey m : monkeys) {
-            action.accept(m);
-        }
-    }
-
-    public static void forEachBalloon(Consumer<Balloon> action) {
-        for (Balloon b : balloons) {
-            action.accept(b);
-        }
     }
 
     public static boolean anyMonkey(Predicate<Monkey> condition) {

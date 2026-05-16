@@ -1,7 +1,6 @@
-package projectile.dartMonkey;
+package projectile;
 
 import balloon.Balloon;
-import projectile.Projectile;
 import utils.Vector2D;
 
 public class Dart extends Projectile {

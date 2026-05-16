@@ -10,5 +10,163 @@
         "spacing": 40
       }
     ]
+  },
+  {
+    "wave": 2,
+    "description": "Prve modre (rychlejsie)",
+    "goldForWave": 110,
+    "groups": [
+      {
+        "type": "RED",
+        "count": 15,
+        "spacing": 30
+      },
+      {
+        "type": "BLUE",
+        "count": 10,
+        "spacing": 50
+      }
+    ]
+  },
+  {
+    "wave": 3,
+    "goldForWave": 120,
+    "description": "Zacinaju zelene",
+    "groups": [
+      {
+        "type": "BLUE",
+        "count": 15,
+        "spacing": 35
+      },
+      {
+        "type": "GREEN",
+        "count": 5,
+        "spacing": 60
+      }
+    ]
+  },
+  {
+    "wave": 4,
+    "description": "Rychly rush - zlte!",
+    "goldForWave": 130,
+    "groups": [
+      {
+        "type": "GREEN",
+        "count": 12,
+        "spacing": 25
+      },
+      {
+        "type": "YELLOW",
+        "count": 8,
+        "spacing": 20
+      }
+    ]
+  },
+  {
+    "wave": 5,
+    "description": "Mixed pack",
+    "goldForWave": 140,
+    "groups": [
+      {
+        "type": "RED",
+        "count": 30,
+        "spacing": 10
+      },
+      {
+        "type": "YELLOW",
+        "count": 15,
+        "spacing": 25
+      }
+    ]
+  },
+  {
+    "wave": 6,
+    "description": "Lead introduction (Sive)",
+    "goldForWave": 200,
+    "groups": [
+      {
+        "type": "LEAD",
+        "count": 4,
+        "spacing": 100
+      },
+      {
+        "type": "GREEN",
+        "count": 20,
+        "spacing": 30
+      }
+    ]
+  },
+  {
+    "wave": 7,
+    "description": "Heavy Leads",
+    "goldForWave": 250,
+    "groups": [
+      {
+        "type": "LEAD",
+        "count": 12,
+        "spacing": 60
+      },
+      {
+        "type": "BLUE",
+        "count": 40,
+        "spacing": 10
+      }
+    ]
+  },
+  {
+    "wave": 8,
+    "description": "Rainbow prep? (Zatial mix)",
+    "goldForWave": 300,
+    "groups": [
+      {
+        "type": "YELLOW",
+        "count": 30,
+        "spacing": 15
+      },
+      {
+        "type": "GREEN",
+        "count": 30,
+        "spacing": 15
+      }
+    ]
+  },
+  {
+    "wave": 9,
+    "description": "Lead & Yellow rush",
+    "goldForWave": 350,
+    "groups": [
+      {
+        "type": "LEAD",
+        "count": 20,
+        "spacing": 40
+      },
+      {
+        "type": "YELLOW",
+        "count": 40,
+        "spacing": 12
+      }
+    ]
+  },
+  {
+    "wave": 10,
+    "description": "Final Regrow (Simulacia)",
+    "goldForWave": 500,
+    "groups": [
+      {
+        "type": "LEAD",
+        "count": 15,
+        "spacing": 30
+      },
+      {
+        "type": "YELLOW",
+        "count": 50,
+        "spacing": 8
+      },
+      {
+        "type": "GREEN",
+        "count": 100,
+        "spacing": 5
+      }
+    ]
   }
 ]

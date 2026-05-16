@@ -2,7 +2,7 @@ package monkey;
 
 import balloon.Balloon;
 import core.Game;
-import projectile.dartMonkey.Dart;
+import projectile.Dart;
 import utils.Vector2D;
 
 public class DartMonkey extends Monkey {
