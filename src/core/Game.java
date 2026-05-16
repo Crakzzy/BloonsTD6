@@ -92,10 +92,6 @@ public class Game {
         Game.balloons.remove(balloon);
     }
 
-    public static String getCurrentlySelectedMonkey() {
-        return Game.currentlySelectedMonkey;
-    }
-
     public static void setCurrentlySelectedMonkey(String currentlySelectedMonkey) {
         Game.currentlySelectedMonkey = currentlySelectedMonkey;
     }

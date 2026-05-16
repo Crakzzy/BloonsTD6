@@ -110,11 +110,11 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
 
     @Override
     public void absorbEffect(Projectile projectile) {
-        if (projectile instanceof Ice) {
+        if (projectile instanceof Ice && !(this instanceof LeadBallon)) {
             this.speed /= 2;
         } else if (projectile instanceof Bomb) {
             this.takeDamage(((Bomb) projectile).getExplosionDamage());
-        } else if (projectile instanceof Dart) {
+        } else if (projectile instanceof Dart && !(this instanceof LeadBallon)) {
             this.poisonTickDamage = (((Dart) projectile).getPoisonDamage());
         }
     }

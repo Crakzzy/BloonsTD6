@@ -105,6 +105,7 @@ public class WaveManager implements ITickable {
             case "BLUE" -> new BlueBalloon();
             case "YELLOW" -> new YellowBalloon();
             case "GREEN" -> new GreenBalloon();
+            case "LEAD" -> new LeadBallon();
             default -> null;
         };
         return balloon != null ? Optional.of(balloon) : Optional.empty();
