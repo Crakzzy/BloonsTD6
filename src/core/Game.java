@@ -93,7 +93,7 @@ public class Game {
     }
 
     public static String getCurrentlySelectedMonkey() {
-        return currentlySelectedMonkey;
+        return Game.currentlySelectedMonkey;
     }
 
     public static void setCurrentlySelectedMonkey(String currentlySelectedMonkey) {

@@ -14,7 +14,7 @@ public class DartMonkey extends Monkey {
     public void shoot(Balloon target) {
         Vector2D spawnPos = new Vector2D(this.getPosition().getX(), this.getPosition().getY());
 
-        Dart dart = new Dart(spawnPos, target);
+        Dart dart = new Dart(spawnPos, target, 5);
 
         Game.addProjectile(dart);
     }

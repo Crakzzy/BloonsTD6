@@ -53,6 +53,7 @@ public abstract class Projectile extends GameObject implements ITickable {
     }
     private void hasHitTarget(Balloon target) {
         target.takeDamage(this.damage);
+        target.absorbEffect(this);
         this.manager.stopManagingObject(this);
         Game.removeProjectile(this);
     }

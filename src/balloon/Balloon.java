@@ -7,6 +7,10 @@ import fri.shapesge.Image;
 import fri.shapesge.Manager;
 import map.Tile;
 import map.TileType;
+import projectile.Bomb;
+import projectile.Dart;
+import projectile.Ice;
+import projectile.Projectile;
 import utils.GameObject;
 import utils.ITargetable;
 import utils.ITickable;
@@ -26,6 +30,10 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
 
     private static final MovementController movementController = MovementController.getInstance();
     private final int hpToTakeOnEnd;
+
+    private int poisonTickDamage = 0;
+    private int poisonTick = 0;
+
 
     public Balloon(short speed, int hp, String imageName, int goldForKill, int hpToTakeOnEnd) {
         Vector2D position;
@@ -51,6 +59,16 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
     @Override
     public void tick() {
         movementController.move(this);
+        if (poisonTick != 0) {
+            poisonTick++;
+        }
+
+        if (poisonTick % 100 == 0 && isAlive()) {
+            this.takeDamage(this.poisonTickDamage);
+        } else if (!isAlive()) {
+            this.poisonTick = 0;
+            this.poisonTickDamage = 0;
+        }
     }
 
     public Optional<Vector2D> getTarget() {
@@ -90,6 +108,17 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
         }
     }
 
+    @Override
+    public void absorbEffect(Projectile projectile) {
+        if (projectile instanceof Ice) {
+            this.speed /= 2;
+        } else if (projectile instanceof Bomb) {
+            this.takeDamage(((Bomb) projectile).getExplosionDamage());
+        } else if (projectile instanceof Dart) {
+            this.poisonTickDamage = (((Dart) projectile).getPoisonDamage());
+        }
+    }
+
     public boolean hasReachedEnd() {
         int col = (this.getPosition().getX()) / 64;
         int row = (this.getPosition().getY()) / 64;
@@ -106,6 +135,10 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
 
     public short getSpeed() {
         return speed;
+    }
+
+    public void setSpeed(short speed) {
+        this.speed = speed;
     }
 
     public int getHp() {
