@@ -57,4 +57,6 @@ public abstract class Projectile extends GameObject implements ITickable {
         this.manager.stopManagingObject(this);
         Game.removeProjectile(this);
     }
+
+    public abstract void applyEffectTo(Balloon balloon);
 }

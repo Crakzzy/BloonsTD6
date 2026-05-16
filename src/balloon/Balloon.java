@@ -110,13 +110,7 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
 
     @Override
     public void absorbEffect(Projectile projectile) {
-        if (projectile instanceof Ice && !(this instanceof LeadBallon)) {
-            this.speed /= 2;
-        } else if (projectile instanceof Bomb) {
-            this.takeDamage(((Bomb) projectile).getExplosionDamage());
-        } else if (projectile instanceof Dart && !(this instanceof LeadBallon)) {
-            this.poisonTickDamage = (((Dart) projectile).getPoisonDamage());
-        }
+        projectile.applyEffectTo(this);
     }
 
     public boolean hasReachedEnd() {
@@ -155,5 +149,14 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
 
     public void stopManaging() {
         this.manager.stopManagingObject(this);
+    }
+
+    public void applyIceEffect() {
+        this.speed /= 2;
+    }
+
+    public void applyPoisonDamage(int poisonDamage) {
+        this.poisonTickDamage = poisonDamage;
+        this.poisonTick++;
     }
 }

@@ -11,4 +11,9 @@ public class Bomb extends Projectile{
     public int getExplosionDamage() {
         return 100;
     }
+
+    @Override
+    public void applyEffectTo(Balloon balloon) {
+        balloon.takeDamage(this.getExplosionDamage());
+    }
 }
