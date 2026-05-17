@@ -12,6 +12,7 @@ import ui.status.HealthStatus;
 import ui.status.WaveStatus;
 import wave.WaveManager;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -99,6 +100,13 @@ public class Game {
     public static void setGold(int gold) {
         Game.gold = gold;
         Game.goldStatus.setText("Gold: " + Game.gold);
+    }
+
+    public static void checkGameOver() {
+        if (Game.health <= 0) {
+            JOptionPane.showMessageDialog(null, "Game Over! You lost all your health.");
+            System.exit(0);
+        }
     }
 
     public void click(int x, int y) {

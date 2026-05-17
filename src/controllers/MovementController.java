@@ -47,6 +47,7 @@ public class MovementController {
         if (balloon.hasReachedEnd()) {
             Game.removeBallon(balloon);
             Game.changeHealth(Game.getHealth() - balloon.getHpToTakeOnEnd());
+            Game.checkGameOver();
         }
     }
 }
