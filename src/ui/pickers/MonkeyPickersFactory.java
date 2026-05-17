@@ -1,6 +1,8 @@
 package ui.pickers;
 
+import fri.shapesge.Image;
 import fri.shapesge.Square;
+import fri.shapesge.TextBlock;
 import utils.Vector2D;
 
 public class MonkeyPickersFactory {
@@ -21,7 +23,7 @@ public class MonkeyPickersFactory {
         int startX = 1550;
         int startY = 20;
         int columnSpacing = 90;
-        int rowSpacing = 90;
+        int rowSpacing = 110;
         int rectSize = 90;
 
         for (int i = 0; i < MonkeyPickersFactory.MONKEYS.length; i++) {
@@ -41,7 +43,21 @@ public class MonkeyPickersFactory {
             background.changeColor("light gray");
             background.makeVisible();
 
-            new MonkeyPicker(MonkeyPickersFactory.MONKEYS[i], (i + 1) * 100, position);
+            int price = (i + 1) * 100;
+            new MonkeyPicker(MonkeyPickersFactory.MONKEYS[i], price, position);
+
+            int textX = rectX + 10;
+            int textY = rectY + rectSize + 15;
+
+            TextBlock priceText = new TextBlock(String.valueOf(price), textX, textY);
+            priceText.changeColor("black");
+            priceText.makeVisible();
+
+            int dollarX = textX + 35;
+            int dollarY = textY - 12;
+
+            Image dollarIcon = new Image("res/assets/misc/dollar.png", dollarX, dollarY);
+            dollarIcon.makeVisible();
         }
     }
 }
