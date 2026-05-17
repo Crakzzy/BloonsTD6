@@ -10,6 +10,11 @@ public class DartMonkey extends Monkey {
         super("dart", position, MonkeyType.DART);
     }
 
+    /**
+     * Vystrelí poison projektil (dart) na zadaný cieľ, ktorý môže aplikovať jed.
+     *
+     * @param target cieľový balón
+     */
     @Override
     public void shoot(Balloon target) {
         Vector2D spawnPos = new Vector2D(this.getPosition().getX(), this.getPosition().getY());

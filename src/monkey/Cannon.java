@@ -10,6 +10,11 @@ public class Cannon extends Monkey {
         super("cannon", position, MonkeyType.CANNON);
     }
 
+    /**
+     * Vytvorí výbuchový projektil (bombu) a pridá ho do hry.
+     *
+     * @param target cieľ, na ktorý sa má projektil zamerať
+     */
     @Override
     public void shoot(Balloon target) {
         Vector2D spawnPos = new Vector2D(this.getPosition().getX(), this.getPosition().getY());

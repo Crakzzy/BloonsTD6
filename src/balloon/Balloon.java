@@ -7,9 +7,6 @@ import fri.shapesge.Image;
 import fri.shapesge.Manager;
 import map.Tile;
 import map.TileType;
-import projectile.Bomb;
-import projectile.Dart;
-import projectile.Ice;
 import projectile.Projectile;
 import utils.GameObject;
 import utils.ITargetable;
@@ -56,6 +53,9 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
         this.manager.manageObject(this);
     }
 
+    /**
+     * Aktualizuje stav balónu každý frame (pohyb a efekty a poison).
+     */
     @Override
     public void tick() {
         movementController.move(this);
@@ -71,6 +71,11 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
         }
     }
 
+    /**
+     * Vracia nasledujúci waypoint, ku ktorému sa balón momentálne presúva.
+     *
+     * @return Optional obsahujúci cieľovú pozíciu alebo empty ak žiadny nie je
+     */
     public Optional<Vector2D> getTarget() {
         if (waypoints != null && currentTargetIndex < waypoints.size()) {
             return Optional.ofNullable(waypoints.get(currentTargetIndex));
@@ -78,10 +83,18 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
         return Optional.empty();
     }
 
+    /**
+     * Posunie interný index waypointu na ďalší cieľ.
+     */
     public void nextTarget() {
         this.currentTargetIndex++;
     }
 
+    /**
+     * Vracia hitbox balónu vo formáte [left, top, right, bottom].
+     *
+     * @return pole súradníc hitboxu
+     */
     @Override
     public int[] getHitbox() {
         int x = this.getPosition().getX();
@@ -92,11 +105,22 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
         };
     }
 
+    /**
+     * Zistí, či je balón stále nažive (HP &gt; 0).
+     *
+     * @return true ak HP &gt; 0, inak false
+     */
     @Override
     public boolean isAlive() {
         return this.hp > 0;
     }
 
+    /**
+     * Zníži HP balónu o zadanú hodnotu poškodenia.
+     * Ak balón zomrie, pridá sa hráčovi odmena za zabitie a balón sa skryje.
+     *
+     * @param damage množstvo HP, ktoré sa má odpočítať
+     */
     @Override
     public void takeDamage(int damage) {
         int nextHp = this.getHp() - damage;
@@ -108,6 +132,11 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
         }
     }
 
+    /**
+     * Varianta takeDamage, ktorá používa projektil ako zdroj poškodenia.
+     *
+     * @param projectile projektil, ktorého damage sa aplikuje
+     */
     @Override
     public void takeDamage(Projectile projectile) {
         int nextHp = this.getHp() - projectile.getDamage();
@@ -119,11 +148,21 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
         }
     }
 
+    /**
+     * Aplikuje vedľajší efekt z projektilu na balón (napr. slow alebo poison).
+     *
+     * @param projectile zdroj efektu
+     */
     @Override
     public void absorbEffect(Projectile projectile) {
         projectile.applyEffectTo(this);
     }
 
+    /**
+     * Zistí, či balón dosiahol cieľ (exit tile) na mape.
+     *
+     * @return true ak balón stojí na výstupnej dlaždici, inak false
+     */
     public boolean hasReachedEnd() {
         int col = (this.getPosition().getX()) / 64;
         int row = (this.getPosition().getY()) / 64;
@@ -138,39 +177,80 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
         return currentTile != null && currentTile.getType() == TileType.EXIT;
     }
 
+    /**
+     * Vracia aktuálnu rýchlosť balónu.
+     *
+     * @return rýchlosť balónu
+     */
     public short getSpeed() {
         return speed;
     }
 
+    /**
+     * Nastaví rýchlosť balónu.
+     *
+     * @param speed nová rýchlosť
+     */
     public void setSpeed(short speed) {
         this.speed = speed;
     }
 
+    /**
+     * Vracia aktuálne HP balónu.
+     *
+     * @return HP hodnoty
+     */
     public int getHp() {
         return hp;
     }
 
+    /**
+     * Nastaví HP balónu.
+     *
+     * @param hp nová hodnota HP
+     */
     public void setHp(int hp) {
         this.hp = hp;
     }
 
+    /**
+     * Vracia množstvo HP, ktoré sa odoberie hráčovi, ak tento balón dôjde na koniec.
+     *
+     * @return poškodenie pre hráča pri dosiahnutí cieľa
+     */
     public int getHpToTakeOnEnd() {
         return this.hpToTakeOnEnd;
     }
 
+    /**
+     * Zastaví manažovanie tohto balónu (napríklad pri jeho zničení).
+     */
     public void stopManaging() {
         this.manager.stopManagingObject(this);
     }
 
+    /**
+     * Aplikuje slow efekt na balón
+     */
     public void applyIceEffect() {
         this.speed /= 2;
     }
 
+    /**
+     * Spustí poison efekt na balóne, ktorý bude časom ubližovať.
+     *
+     * @param poisonDamage poškodenie na kazdy 100. tick
+     */
     public void applyPoisonDamage(int poisonDamage) {
         this.poisonTickDamage = poisonDamage;
         this.poisonTick++;
     }
 
+    /**
+     * Vracia množstvo zlata, ktoré hráč získa za zabitie tohto balónu.
+     *
+     * @return odmena za zabitie
+     */
     public int getGoldForKill() {
         return this.goldForKill;
     }

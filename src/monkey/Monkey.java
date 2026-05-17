@@ -28,6 +28,9 @@ public abstract class Monkey extends GameObject implements ITickable {
         this.manager.manageObject(this);
     }
 
+    /**
+     * Volané každý frame; znižuje cooldown medzi streľbami, hľadá cieľ a prípadne strieľa.
+     */
     @Override
     public void tick() {
         if (this.currentCooldownBetweenShots > 0) {
@@ -46,8 +49,20 @@ public abstract class Monkey extends GameObject implements ITickable {
         }
     }
 
+    /**
+     * Abstraktná metóda, ktorú implementuje konkrétna opica pre vystrelenie projektilu na cieľ.
+     *
+     * @param target cieľ (balón), na ktorý sa strieľa
+     */
     public abstract void shoot(Balloon target);
 
+    /**
+     * Skontroluje, či by umiestnenie novej opice na pozíciu `newPos` bolo príliš blízko
+     * k tejto opici (t.j. vznikol by konflikt pri umiestnení).
+     *
+     * @param newPos pozícia novej opice
+     * @return true ak by nastal konflikt (príliš blízko), false inak
+     */
     public boolean wouldNewMonkeyConflict(Vector2D newPos) {
         double dx = this.getPosition().getX() - newPos.getX();
         double dy = this.getPosition().getY() - newPos.getY();

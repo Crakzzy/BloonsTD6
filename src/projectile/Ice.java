@@ -9,6 +9,11 @@ public class Ice extends Projectile {
         super(5, 20, "ice", position, target);
     }
 
+    /**
+     * Aplikuje ľadový efekt na balón ak to nie je lead balón (spomalenie).
+     *
+     * @param balloon cieľový balón
+     */
     @Override
     public void applyEffectTo(Balloon balloon) {
         if (!(balloon instanceof LeadBallon)) {

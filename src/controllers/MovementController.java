@@ -12,6 +12,12 @@ public class MovementController {
     private MovementController() {
     }
 
+    /**
+     * Vracia singleton inštanciu MovementController.
+     * Ak ešte neexistuje, vytvorí sa nová.
+     *
+     * @return jediná inštancia MovementController
+     */
     public static MovementController getInstance() {
         if (MovementController.instance == null) {
             MovementController.instance = new MovementController();
@@ -19,6 +25,12 @@ public class MovementController {
         return MovementController.instance;
     }
 
+    /**
+     * Posunie balón smerom na jeho ďalší waypoint a spracuje dosiahnutie cieľa.
+     * Táto metóda sa volá každé tick pre každý balón.
+     *
+     * @param balloon balón, ktorý sa má pohnúť
+     */
     public void move(Balloon balloon) {
         Optional<Vector2D> target = balloon.getTarget();
 

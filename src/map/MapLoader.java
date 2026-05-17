@@ -12,6 +12,13 @@ import java.util.Optional;
 public class MapLoader {
     private static final String MAP_FOLDER = "res/maps/";
 
+    /**
+     * Načíta mapu z CSV súboru v priečinku `res/maps`.
+     * Každý riadok CSV reprezentuje riadok dlaždíc a kódy sú prevedené cez `TileType.from`.
+     *
+     * @param mapName názov mapy bez prípony
+     * @return Optional obsahujúci načítaný GameMap alebo empty pri chybe
+     */
     public static Optional<GameMap> loadMap(String mapName) {
         String path = MAP_FOLDER + mapName + ".csv";
 

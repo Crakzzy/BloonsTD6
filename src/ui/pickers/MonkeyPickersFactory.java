@@ -13,6 +13,11 @@ public class MonkeyPickersFactory {
     private MonkeyPickersFactory() {
     }
 
+    /**
+     * Vracia singleton továrne na vytváranie pickerov pre opice.
+     *
+     * @return jediná inštancia MonkeyPickersFactory
+     */
     public static MonkeyPickersFactory getInstance() {
         if (MonkeyPickersFactory.instance == null) {
             MonkeyPickersFactory.instance = new MonkeyPickersFactory();
@@ -20,6 +25,9 @@ public class MonkeyPickersFactory {
         return MonkeyPickersFactory.instance;
     }
 
+    /**
+     * Vytvorí vizuálne pickery pre všetky typy opíc a umiestni ich na bočný panel.
+     */
     public void createPickers() {
         int startX = 1550;
         int startY = 20;

@@ -21,14 +21,31 @@ public enum TileType {
         this.placeableOn = placeableOn;
     }
 
+    /**
+     * Vracia cestu k obrázku pre daný typ dlaždice.
+     *
+     * @return relatívna cesta k obrázku v `res/assets/map`
+     */
     public String getImagePath() {
         return "res/assets/map/" + this.imagePath;
     }
 
+    /**
+     * Indikuje, či je možné na túto dlaždicu umiestniť opicu (placeable).
+     *
+     * @return true ak je možné umiestniť opicu, false inak
+     */
     public boolean canPlace() {
         return this.placeableOn;
     }
 
+    /**
+     * Vytvorí TileType z kódu použitom v CSV mape.
+     *
+     * @param code kód dlaždice (napr. "G", "PH", ...)
+     * @return zodpovedajúci TileType
+     * @throws IllegalArgumentException ak je kód neznámy
+     */
     public static TileType from(String code) {
         return switch (code) {
             case "G" -> GRASS;

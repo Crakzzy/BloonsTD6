@@ -10,6 +10,11 @@ public class DartlingMonkey extends Monkey {
         super("dartling", position, MonkeyType.DARTLING);
     }
 
+    /**
+     * Vystrelí rýchle darty smerované na cieľ; tento typ má vyššiu kadenciu.
+     *
+     * @param target cieľový balón
+     */
     @Override
     public void shoot(Balloon target) {
         Vector2D spawnPos = new Vector2D(this.getPosition().getX(), this.getPosition().getY());

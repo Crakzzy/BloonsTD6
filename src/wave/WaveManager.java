@@ -44,6 +44,12 @@ public class WaveManager implements ITickable {
         this.healthStatus = HealthStatus.getInstance(Game.getHealth());
     }
 
+    /**
+     * Vracia inštanciu singletonu WaveManager.
+     * Ak ešte neexistuje, vytvorí sa nová.
+     *
+     * @return jediná inštancia WaveManager
+     */
     public static WaveManager getInstance() {
         if (WaveManager.instance == null) {
             WaveManager.instance = new WaveManager();
@@ -51,6 +57,13 @@ public class WaveManager implements ITickable {
         return WaveManager.instance;
     }
 
+    /**
+     * Načíta definíciu vĺn zo JSON súboru v priečinku `res/assets/waves`.
+     * Názov súboru sa predpokladá bez prípony (bez ".json").
+     * Po načítaní sa WaveManager pridá do manažéra tvarov aby sa volalo jeho tick().
+     *
+     * @param filePath názov súboru s vlnami bez prípony
+     */
     public void loadWaves(String filePath) {
         Gson gson = new Gson();
         try (Reader reader = new FileReader("res/assets/waves/" + filePath + ".json")) {
@@ -66,6 +79,9 @@ public class WaveManager implements ITickable {
         }
     }
 
+    /**
+     * Metóda volaná každý frame; spravuje postupné spawnovanie balónov podľa načítaných vĺn.
+     */
     @Override
     public void tick() {
         if (this.allWaves == null || this.currentWaveIdx >= this.allWaves.size()) {

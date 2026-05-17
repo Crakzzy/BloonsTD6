@@ -8,10 +8,20 @@ public class Bomb extends Projectile {
         super(100, 10, "bomb", position, target);
     }
 
+    /**
+     * Vracia základné explozné poškodenie bomby.
+     *
+     * @return množstvo poškodenia pri explózii
+     */
     public int getExplosionDamage() {
         return 100;
     }
 
+    /**
+     * Aplikuje explozný efekt na zasiahnuty balón
+     *
+     * @param balloon cieľový balón
+     */
     @Override
     public void applyEffectTo(Balloon balloon) {
         balloon.takeDamage(this.getExplosionDamage());

@@ -8,6 +8,16 @@ import utils.Vector2D;
 import java.util.Optional;
 
 public class MonkeySpawner {
+    /**
+     * Pokúsi sa umiestniť opicu daného mena na zadané pixelové súradnice.
+     * Kontroluje, či je terén vhodný, či nie je kolízia s existujúcimi opicami
+     * a či má hráč dosť zlatých.
+     *
+     * @param name názov opice (napr. "dart", "ice", ...)
+     * @param x pixelová X súradnica kurzora
+     * @param y pixelová Y súradnica kurzora
+     * @return Optional obsahujúci vytvorenú opicu ak sa umiestnenie podarilo, inak empty
+     */
     public static Optional<Monkey> tryPlaceMonkey(String name, int x, int y) {
         Vector2D pixelPos = new Vector2D(x - 32, y - 32);
 

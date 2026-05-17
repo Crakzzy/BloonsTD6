@@ -14,6 +14,12 @@ public class GameMap {
         GameMap.grid = grid;
     }
 
+    /**
+     * Vracia inštanciu načítanej mapy.
+     *
+     * @return singleton GameMap
+     * @throws IllegalStateException ak mapa ešte nebola načítaná
+     */
     public static GameMap getInstance() {
         if (GameMap.instance == null) {
             throw new IllegalStateException("GameMap not loaded yet — call load() first");
@@ -21,10 +27,21 @@ public class GameMap {
         return GameMap.instance;
     }
 
+    /**
+     * Načíta statickú mriežku dlaždíc (grid) do GameMap singletonu.
+     *
+     * @param grid 2D pole dlaždíc reprezentujúce mapu
+     */
     public static void load(Tile[][] grid) {
         GameMap.instance = new GameMap(grid);
     }
 
+    /**
+     * Vygeneruje zoznam waypointov (stredy dlaždíc) pre cestu balónov podľa
+     * typov dlaždíc (spawn/exit/rohy).
+     *
+     * @return zoznam súradníc (Vector2D) reprezentujúcich cestu
+     */
     public ArrayList<Vector2D> generatePath() {
         ArrayList<Vector2D> path = new ArrayList<>();
         Tile[][] newGrid = getGrid();
@@ -47,10 +64,23 @@ public class GameMap {
         return path;
     }
 
+    /**
+     * Vracia internú mriežku dlaždíc mapy.
+     *
+     * @return 2D pole Tile objektov
+     */
     public static Tile[][] getGrid() {
         return grid;
     }
 
+    /**
+     * Vracia typ dlaždice na zadaných indexoch; ak sú indexy mimo rozsahu,
+     * vráti `TileType.EMPTY`.
+     *
+     * @param row index riadku
+     * @param col index stĺpca
+     * @return typ dlaždice alebo EMPTY ak indexy mimo rozsahu
+     */
     public static TileType getTileType(int row, int col) {
         if (row < 0 || row >= grid.length || col < 0 || col >= grid[0].length) {
             return TileType.EMPTY;
