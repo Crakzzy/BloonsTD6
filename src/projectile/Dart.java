@@ -2,6 +2,7 @@ package projectile;
 
 import balloon.Balloon;
 import balloon.LeadBallon;
+import utils.ITargetable;
 import utils.Vector2D;
 
 public class Dart extends Projectile {
@@ -14,7 +15,7 @@ public class Dart extends Projectile {
      * @param target cielovy balon
      * @param poisonDamage poison damage
      */
-    public Dart(Vector2D initialPosition, Balloon target, int poisonDamage) {
+    public Dart(Vector2D initialPosition, ITargetable target, int poisonDamage) {
         super(10, 4, "dart", initialPosition, target);
         this.poisonDamage = poisonDamage;
     }
@@ -32,12 +33,12 @@ public class Dart extends Projectile {
     /**
      * Aplikuje efekt dartu (poison) na cieľ, ak cieľ nie je lead balón.
      *
-     * @param balloon cieľový balón
+     * @param target cieľový target
      */
     @Override
-    public void applyEffectTo(Balloon balloon) {
-        if (!(balloon instanceof LeadBallon)) {
-            balloon.applyPoisonDamage(this.getPoisonDamage());
+    public void applyEffectTo(ITargetable target) {
+        if (!(target instanceof LeadBallon)) {
+            ((Balloon)target).applyPoisonDamage(this.getPoisonDamage());
         }
     }
 

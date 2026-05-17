@@ -1,7 +1,7 @@
 package projectile;
 
 
-import balloon.Balloon;
+import utils.ITargetable;
 import core.Game;
 import fri.shapesge.Image;
 import fri.shapesge.Manager;
@@ -13,7 +13,7 @@ public abstract class Projectile extends GameObject implements ITickable {
     private final int damage;
     private final int speed;
     private final Manager manager;
-    private final Balloon target;
+    private final ITargetable target;
 
     /**
      * Vytvorí projektil s určeným poškodením, rýchlosťou a cieľom.
@@ -24,7 +24,7 @@ public abstract class Projectile extends GameObject implements ITickable {
      * @param position počiatočná pozícia projektilu
      * @param target cieľ, na ktorý sa projektil zameriava
      */
-    public Projectile(int damage, int speed, String imageName, Vector2D position, Balloon target) {
+    public Projectile(int damage, int speed, String imageName, Vector2D position, ITargetable target) {
         super(position, new Image("res/assets/projectiles/" + imageName + ".png"), 0);
         super.hide();
         this.damage = damage;
@@ -66,7 +66,7 @@ public abstract class Projectile extends GameObject implements ITickable {
         }
     }
 
-    private void hasHitTarget(Balloon target) {
+    private void hasHitTarget(ITargetable target) {
         target.takeDamage(this.damage);
         target.absorbEffect(this);
         this.manager.stopManagingObject(this);
@@ -86,7 +86,7 @@ public abstract class Projectile extends GameObject implements ITickable {
      * Aplikuje špeciálny efekt projektilu na balón (napr. jed alebo spomalenie).
      * Implementované v podtriedach.
      *
-     * @param balloon cieľový balón
+     * @param target cieľový objekt implementujúci ITargetable
      */
-    public abstract void applyEffectTo(Balloon balloon);
+    public abstract void applyEffectTo(ITargetable target);
 }

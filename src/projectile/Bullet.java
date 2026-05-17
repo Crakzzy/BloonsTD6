@@ -1,6 +1,6 @@
 package projectile;
 
-import balloon.Balloon;
+import utils.ITargetable;
 import utils.Vector2D;
 
 public class Bullet extends Projectile {
@@ -10,12 +10,16 @@ public class Bullet extends Projectile {
      * @param initialPosition  počiatočná pozícia projektilu
      * @param target    cieľ, na ktorý sa projektil zameriava
      */
-    public Bullet(Vector2D initialPosition, Balloon target) {
+    public Bullet(Vector2D initialPosition, ITargetable target) {
         super(200, 50, "bullet", initialPosition, target);
     }
 
+    /**
+     * Aplikuje efekt na target - dvojnasobny damage
+     * @param target cieľový objekt implementujúci ITargetable
+     */
     @Override
-    public void applyEffectTo(Balloon balloon) {
-        balloon.takeDamage(this.getDamage() * 2);
+    public void applyEffectTo(ITargetable target) {
+        target.takeDamage(this.getDamage() * 2);
     }
 }

@@ -1,10 +1,10 @@
 package projectile;
 
-import balloon.Balloon;
+import utils.ITargetable;
 import utils.Vector2D;
 
 public class Bomb extends Projectile {
-    public Bomb(Vector2D position, Balloon target) {
+    public Bomb(Vector2D position, ITargetable target) {
         super(100, 10, "bomb", position, target);
     }
 
@@ -20,10 +20,10 @@ public class Bomb extends Projectile {
     /**
      * Aplikuje explozný efekt na zasiahnuty balón
      *
-     * @param balloon cieľový balón
+     * @param target cieľový target
      */
     @Override
-    public void applyEffectTo(Balloon balloon) {
-        balloon.takeDamage(this.getExplosionDamage());
+    public void applyEffectTo(ITargetable target) {
+        target.takeDamage(this.getExplosionDamage());
     }
 }

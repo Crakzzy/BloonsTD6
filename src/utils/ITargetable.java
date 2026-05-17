@@ -28,6 +28,13 @@ public interface ITargetable {
     void absorbEffect(Projectile projectile);
 
     /**
+     * Vracia aktuálnu pozíciu cieľa.
+     *
+     * @return pozícia cieľa
+     */
+    Vector2D getPosition();
+
+    /**
      * Indikuje, či je objekt stále nažive.
      *
      * @return true ak je nažive, false ak nie
