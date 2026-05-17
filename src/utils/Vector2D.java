@@ -10,19 +10,11 @@ public class Vector2D {
     }
 
     public int getX() {
-        return x;
+        return this.x;
     }
 
     public int getY() {
-        return y;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
+        return this.y;
     }
 
     public void add(int dx, int dy) {
@@ -38,29 +30,12 @@ public class Vector2D {
         return new Vector2D(this.x - other.x, this.y - other.y);
     }
 
-    public Vector2D scale(int factor) {
-        return new Vector2D(this.x * factor, this.y * factor);
-    }
-
-    public Vector2D normalize() {
-        int mag = this.magnitude();
-        if (mag == 0) return new Vector2D(0, 0);
-        return new Vector2D((int) ((int) this.x / mag), (int) ((int) this.y / mag));
-    }
-
     public int magnitude() {
-        return (int) Math.sqrt(this.x * this.x + this.y * this.y);
+        return (int)Math.sqrt(this.x * this.x + this.y * this.y);
     }
 
     public int distanceTo(Vector2D other) {
         return this.subtract(other).magnitude();
-    }
-
-    public static Vector2D fromGrid(int row, int col, int tileSize) {
-        return new Vector2D(
-                (int) (col * tileSize + tileSize / 2f),
-                (int) (row * tileSize + tileSize / 2f)
-        );
     }
 
     @Override

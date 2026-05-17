@@ -2,7 +2,6 @@ package utils;
 
 import balloon.Balloon;
 import fri.shapesge.Image;
-import monkey.Monkey;
 
 public abstract class GameObject {
     private Vector2D position;
@@ -52,7 +51,7 @@ public abstract class GameObject {
 
         double degrees = Math.toDegrees(radians);
 
-        int finalAngle = (int) Math.round(degrees) + 90;
+        int finalAngle = (int)Math.round(degrees) + 90;
 
         this.image.changeAngle(finalAngle);
 

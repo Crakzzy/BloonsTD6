@@ -2,7 +2,6 @@ package core;
 
 import map.Tile;
 import map.TileType;
-import utils.Position;
 import utils.Vector2D;
 
 import java.util.ArrayList;
@@ -28,11 +27,11 @@ public class GameMap {
 
     public ArrayList<Vector2D> generatePath() {
         ArrayList<Vector2D> path = new ArrayList<>();
-        Tile[][] grid = getGrid();
+        Tile[][] newGrid = getGrid();
 
-        for (int r = 0; r < grid.length; r++) {
-            for (int c = 0; c < grid[r].length; c++) {
-                TileType type = grid[r][c].getType();
+        for (int r = 0; r < newGrid.length; r++) {
+            for (int c = 0; c < newGrid[r].length; c++) {
+                TileType type = newGrid[r][c].getType();
 
                 if (type == TileType.SPAWN ||
                         type == TileType.BOTTOM_LEFT_CORNER ||

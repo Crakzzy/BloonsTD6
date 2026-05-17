@@ -1,6 +1,11 @@
 package wave;
 
-import balloon.*;
+import balloon.Balloon;
+import balloon.BlueBalloon;
+import balloon.RedBalloon;
+import balloon.YellowBalloon;
+import balloon.LeadBallon;
+import balloon.GreenBalloon;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import core.Game;
@@ -117,9 +122,5 @@ public class WaveManager implements ITickable {
 
     private void changeGoldText() {
         this.goldStatus.setText("Gold: " + Game.getGold());
-    }
-
-    private void changeHealthText() {
-        this.healthStatus.setText("Health: " + Game.getHealth());
     }
 }

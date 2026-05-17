@@ -3,7 +3,7 @@ package map;
 import core.GameMap;
 import utils.Position;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

@@ -5,7 +5,9 @@ import balloon.Balloon;
 import core.Game;
 import fri.shapesge.Image;
 import fri.shapesge.Manager;
-import utils.*;
+import utils.GameObject;
+import utils.ITickable;
+import utils.Vector2D;
 
 public abstract class Projectile extends GameObject implements ITickable {
     private int damage;
@@ -37,8 +39,8 @@ public abstract class Projectile extends GameObject implements ITickable {
 
         double radians = Math.toRadians(currentAngleInt - 90);
 
-        int dx = (int) Math.round(Math.cos(radians) * (double) this.speed);
-        int dy = (int) Math.round(Math.sin(radians) * (double) this.speed);
+        int dx = (int)Math.round(Math.cos(radians) * (double)this.speed);
+        int dy = (int)Math.round(Math.sin(radians) * (double)this.speed);
 
         this.getPosition().add(dx, dy);
 
@@ -47,7 +49,7 @@ public abstract class Projectile extends GameObject implements ITickable {
                 this.getPosition().getY() - 8
         );
 
-        if (this.getPosition().distanceTo(target.getPosition()) < 25) {
+        if (this.getPosition().distanceTo(this.target.getPosition()) < 25) {
             this.hasHitTarget(this.target);
         }
     }

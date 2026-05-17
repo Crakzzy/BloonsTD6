@@ -15,7 +15,7 @@ public class Dart extends Projectile {
 
 
     public int getPoisonDamage() {
-        return poisonDamage;
+        return this.poisonDamage;
     }
 
     @Override

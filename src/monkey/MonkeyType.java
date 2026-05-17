@@ -20,7 +20,7 @@ public enum MonkeyType {
     }
 
     public int getCost() {
-        return cost;
+        return this.cost;
     }
 
     public void setCost(int cost) {
@@ -28,7 +28,7 @@ public enum MonkeyType {
     }
 
     public int getDamage() {
-        return damage;
+        return this.damage;
     }
 
     public void setDamage(int damage) {
@@ -36,7 +36,7 @@ public enum MonkeyType {
     }
 
     public int getRange() {
-        return range;
+        return this.range;
     }
 
     public void setRange(int range) {
@@ -44,7 +44,7 @@ public enum MonkeyType {
     }
 
     public int getShotsPerSecond() {
-        return shotsPerSecond;
+        return this.shotsPerSecond;
     }
 
     public void setShotsPerSecond(int shotsPerSecond) {

@@ -12,7 +12,7 @@ import ui.status.HealthStatus;
 import ui.status.WaveStatus;
 import wave.WaveManager;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,9 +26,9 @@ public class Game {
     private static GoldStatus goldStatus;
     private static HealthStatus healthStatus;
 
-    private static final ArrayList<Monkey> monkeys = new ArrayList<>();
-    private static final ArrayList<Balloon> balloons = new ArrayList<>();
-    private static final ArrayList<Projectile> projectiles = new ArrayList<>();
+    private static final ArrayList<Monkey> MONKEYS = new ArrayList<>();
+    private static final ArrayList<Balloon> BALLOONS = new ArrayList<>();
+    private static final ArrayList<Projectile> PROJECTILES = new ArrayList<>();
 
     private static String currentlySelectedMonkey = null;
 
@@ -75,22 +75,22 @@ public class Game {
     }
 
     public static List<Balloon> getBalloons() {
-        return Collections.unmodifiableList(balloons);
+        return Collections.unmodifiableList(BALLOONS);
     }
 
     public static void addProjectile(Projectile projectile) {
-        Game.projectiles.add(projectile);
+        Game.PROJECTILES.add(projectile);
     }
 
     public static void removeProjectile(Projectile projectile) {
         projectile.hide();
-        Game.projectiles.remove(projectile);
+        Game.PROJECTILES.remove(projectile);
     }
 
     public static void removeBallon(Balloon balloon) {
         balloon.hide();
         balloon.stopManaging();
-        Game.balloons.remove(balloon);
+        Game.BALLOONS.remove(balloon);
     }
 
     public static void setCurrentlySelectedMonkey(String currentlySelectedMonkey) {
@@ -111,19 +111,21 @@ public class Game {
 
     public void click(int x, int y) {
         Optional<Monkey> monkey = MonkeySpawner.tryPlaceMonkey(Game.currentlySelectedMonkey, x, y);
-        if (monkey.isEmpty()) return;
+        if (monkey.isEmpty()) {
+            return;
+        }
         Game.addMonkey(monkey.get());
     }
 
     public static void addMonkey(Monkey monkey) {
-        monkeys.add(monkey);
+        MONKEYS.add(monkey);
     }
 
     public static void addBalloon(Balloon ballon) {
-        balloons.add(ballon);
+        BALLOONS.add(ballon);
     }
 
     public static boolean anyMonkey(Predicate<Monkey> condition) {
-        return monkeys.stream().anyMatch(condition);
+        return MONKEYS.stream().anyMatch(condition);
     }
 }

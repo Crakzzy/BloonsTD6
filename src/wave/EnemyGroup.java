@@ -1,3 +1,3 @@
 package wave;
 
-public record EnemyGroup(String type, int count, int spacing) {}
+public record EnemyGroup(String type, int count, int spacing) { }

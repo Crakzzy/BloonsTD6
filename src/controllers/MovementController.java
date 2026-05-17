@@ -7,16 +7,16 @@ import utils.Vector2D;
 import java.util.Optional;
 
 public class MovementController {
-    private static MovementController INSTANCE;
+    private static MovementController instance;
 
     private MovementController() {
     }
 
     public static MovementController getInstance() {
-        if (MovementController.INSTANCE == null) {
-            MovementController.INSTANCE = new MovementController();
+        if (MovementController.instance == null) {
+            MovementController.instance = new MovementController();
         }
-        return MovementController.INSTANCE;
+        return MovementController.instance;
     }
 
     public void move(Balloon balloon) {
@@ -37,8 +37,8 @@ public class MovementController {
             balloon.updatePosition(target.get());
             balloon.nextTarget();
         } else {
-            int moveX = (int) Math.round((dx / distance) * speed);
-            int moveY = (int) Math.round((dy / distance) * speed);
+            int moveX = (int)Math.round((dx / distance) * speed);
+            int moveY = (int)Math.round((dy / distance) * speed);
 
             Vector2D newPos = new Vector2D(currentPos.getX() + moveX, currentPos.getY() + moveY);
             balloon.updatePosition(newPos);
