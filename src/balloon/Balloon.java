@@ -58,12 +58,12 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
      */
     @Override
     public void tick() {
-        movementController.move(this);
-        if (poisonTick != 0) {
-            poisonTick++;
+        Balloon.movementController.move(this);
+        if (this.poisonTick != 0) {
+            this.poisonTick++;
         }
 
-        if (poisonTick % 100 == 0 && isAlive()) {
+        if (this.poisonTick % 100 == 0 && this.isAlive()) {
             this.takeDamage(this.poisonTickDamage);
         } else if (!isAlive()) {
             this.poisonTick = 0;
@@ -77,8 +77,8 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
      * @return Optional obsahujúci cieľovú pozíciu alebo empty ak žiadny nie je
      */
     public Optional<Vector2D> getTarget() {
-        if (waypoints != null && currentTargetIndex < waypoints.size()) {
-            return Optional.ofNullable(waypoints.get(currentTargetIndex));
+        if (this.waypoints != null && this.currentTargetIndex < this.waypoints.size()) {
+            return Optional.ofNullable(this.waypoints.get(this.currentTargetIndex));
         }
         return Optional.empty();
     }
@@ -125,8 +125,7 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
     public void takeDamage(int damage) {
         int nextHp = this.getHp() - damage;
         this.setHp(Math.max(nextHp, 0));
-
-        if (!isAlive()) {
+        if (!this.isAlive()) {
             Game.addGold(this.goldForKill);
             this.hide();
         }
@@ -141,8 +140,7 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
     public void takeDamage(Projectile projectile) {
         int nextHp = this.getHp() - projectile.getDamage();
         this.setHp(Math.max(nextHp, 0));
-
-        if (!isAlive()) {
+        if (!this.isAlive()) {
             Game.addGold(this.goldForKill);
             this.hide();
         }
