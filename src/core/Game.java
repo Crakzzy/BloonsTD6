@@ -171,6 +171,9 @@ public class Game {
      * @param y pixelová Y súradnica kliknutia
      */
     public void click(int x, int y) {
+        if (currentlySelectedMonkey == null) {
+            return;
+        }
         Optional<Monkey> monkey = MonkeySpawner.tryPlaceMonkey(Game.currentlySelectedMonkey, x, y);
         if (monkey.isEmpty()) {
             return;

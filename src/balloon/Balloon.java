@@ -127,7 +127,7 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
         this.setHp(Math.max(nextHp, 0));
         if (!this.isAlive()) {
             Game.addGold(this.goldForKill);
-            this.hide();
+            Game.removeBallon(this);
         }
     }
 

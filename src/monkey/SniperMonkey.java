@@ -2,7 +2,7 @@ package monkey;
 
 import balloon.Balloon;
 import core.Game;
-import projectile.Dart;
+import projectile.Bullet;
 import utils.Vector2D;
 
 public class SniperMonkey extends Monkey {
@@ -19,8 +19,8 @@ public class SniperMonkey extends Monkey {
     public void shoot(Balloon target) {
         Vector2D spawnPos = new Vector2D(this.getPosition().getX(), this.getPosition().getY());
 
-        Dart dart = new Dart(spawnPos, target, 5);
+        Bullet bullet = new Bullet(spawnPos, target);
 
-        Game.addProjectile(dart);
+        Game.addProjectile(bullet);
     }
 }
