@@ -1,5 +1,7 @@
 package utils;
 
+/*Vygenerovana class pomocou umelej inteligencie*/
+
 public class Vector2D {
     private int x;
     private int y;
@@ -84,7 +86,7 @@ public class Vector2D {
     }
 
     @Override
-    /**
+    /*
      * Vracia textovú reprezentáciu vektora vo formáte "(x, y)".
      *
      * @return textová reprezentácia vektora
