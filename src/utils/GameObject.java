@@ -2,6 +2,7 @@ package utils;
 
 import balloon.Balloon;
 import fri.shapesge.Image;
+import monkey.Monkey;
 
 public abstract class GameObject {
     private Vector2D position;

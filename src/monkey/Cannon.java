@@ -7,7 +7,7 @@ import utils.Vector2D;
 
 public class Cannon extends Monkey {
     public Cannon(Vector2D position) {
-        super(100, 400, 100, 1, "cannon", position);
+        super("cannon", position, MonkeyType.CANNON);
     }
 
     @Override

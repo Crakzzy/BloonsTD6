@@ -12,21 +12,17 @@ import java.util.List;
 import java.util.Optional;
 
 public abstract class Monkey extends GameObject implements ITickable {
-    private final int damage;
-    private final int cost;
-    private final int range;
     private int ticksBetweenShots;
     private int currentCooldownBetweenShots = 0;
     private Manager manager;
+    private MonkeyType type;
 
     private static final int MINIMAL_MONKEY_MARGIN_PX = 1;
 
-    public Monkey(int damage, int cost, int range, int shotsPerSecond, java.lang.String imageName, Vector2D position) {
+    public Monkey(String imageName, Vector2D position, MonkeyType type) {
         super(position, new Image("res/assets/monkeys/" + imageName + ".png"), 0);
-        this.damage = damage;
-        this.cost = cost;
-        this.range = range;
-        this.ticksBetweenShots = 60 / shotsPerSecond;
+        this.type = type;
+        this.ticksBetweenShots = 60 / type.getShotsPerSecond();
 
         this.manager = new Manager();
         this.manager.manageObject(this);
@@ -34,19 +30,19 @@ public abstract class Monkey extends GameObject implements ITickable {
 
     @Override
     public void tick() {
+        if (this.currentCooldownBetweenShots > 0) {
+            this.currentCooldownBetweenShots--;
+        }
+
         Optional<Balloon> target = this.findTarget(Game.getBalloons());
 
         if (target.isPresent()) {
             this.rotateTowards(target.get().getPosition());
 
-            if (this.currentCooldownBetweenShots > 0) {
-                this.currentCooldownBetweenShots--;
-            } else {
+            if (this.currentCooldownBetweenShots == 0) {
                 this.shoot(target.get());
                 this.currentCooldownBetweenShots = this.ticksBetweenShots;
             }
-        } else if (this.currentCooldownBetweenShots > 0) {
-            this.currentCooldownBetweenShots--;
         }
     }
 
@@ -60,13 +56,9 @@ public abstract class Monkey extends GameObject implements ITickable {
         return distance < 40;
     }
 
-    public void setShotsPerSecond(int newShotsPerSecond) {
-        this.ticksBetweenShots = 60 / newShotsPerSecond;
-    }
-
     private Optional<Balloon> findTarget(List<Balloon> balloons) {
         for (Balloon balloon : balloons) {
-            if (this.isBalloonInRange(balloon)) {
+            if (balloon.isAlive() && this.isBalloonInRange(balloon) && !balloon.hasReachedEnd()) {
                 return Optional.of(balloon);
             }
         }
@@ -81,6 +73,6 @@ public abstract class Monkey extends GameObject implements ITickable {
 
         double distance = Math.sqrt(dx * dx + dy * dy);
 
-        return distance <= this.range;
+        return distance <= this.type.getRange();
     }
 }

@@ -5,7 +5,7 @@ import utils.Vector2D;
 
 public class SniperMonkey extends Monkey {
     public SniperMonkey(Vector2D position) {
-        super(20, 350, 9999, 1, "sniper", position);
+        super("sniper", position, MonkeyType.SNIPER);
     }
 
     @Override

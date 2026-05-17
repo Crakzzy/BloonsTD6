@@ -7,7 +7,7 @@ import utils.Vector2D;
 
 public class DartMonkey extends Monkey {
     public DartMonkey(Vector2D position) {
-        super(5, 250, 100, 1,"dart", position);
+        super("dart", position, MonkeyType.DART);
     }
 
     @Override

@@ -7,7 +7,7 @@ import utils.Vector2D;
 
 public class DartlingMonkey extends Monkey {
     public DartlingMonkey(Vector2D position) {
-        super(20, 850, Integer.MAX_VALUE, 10, "dartling", position);
+        super("dartling", position, MonkeyType.DARTLING);
     }
 
     @Override

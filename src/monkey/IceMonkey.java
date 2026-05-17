@@ -7,7 +7,7 @@ import utils.Vector2D;
 
 public class IceMonkey extends Monkey {
     public IceMonkey(Vector2D position) {
-        super(3, 300, 100, 1, "ice", position);
+        super( "ice", position, MonkeyType.ICE);
     }
 
     @Override

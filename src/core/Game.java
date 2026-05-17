@@ -96,9 +96,14 @@ public class Game {
         Game.currentlySelectedMonkey = currentlySelectedMonkey;
     }
 
-    public void place(int x, int y) {
-        Optional<Monkey> monkey = MonkeySpawner.tryPlaceMonkey(Game.currentlySelectedMonkey, x, y);
+    public static void setGold(int gold) {
+        Game.gold = gold;
+        Game.goldStatus.setText("Gold: " + Game.gold);
+    }
 
+    public void click(int x, int y) {
+        Optional<Monkey> monkey = MonkeySpawner.tryPlaceMonkey(Game.currentlySelectedMonkey, x, y);
+        System.out.println("monkey: " + monkey);
         if (monkey.isEmpty()) return;
         Game.addMonkey(monkey.get());
     }

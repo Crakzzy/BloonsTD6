@@ -37,8 +37,8 @@ public abstract class Projectile extends GameObject implements ITickable {
 
         double radians = Math.toRadians(currentAngleInt - 90);
 
-        int dx = (int) Math.round(Math.cos(radians) * (double)this.speed);
-        int dy = (int) Math.round(Math.sin(radians) * (double)this.speed);
+        int dx = (int) Math.round(Math.cos(radians) * (double) this.speed);
+        int dy = (int) Math.round(Math.sin(radians) * (double) this.speed);
 
         this.getPosition().add(dx, dy);
 
@@ -51,11 +51,16 @@ public abstract class Projectile extends GameObject implements ITickable {
             this.hasHitTarget(this.target);
         }
     }
+
     private void hasHitTarget(Balloon target) {
         target.takeDamage(this.damage);
         target.absorbEffect(this);
         this.manager.stopManagingObject(this);
         Game.removeProjectile(this);
+    }
+
+    public int getDamage() {
+        return this.damage;
     }
 
     public abstract void applyEffectTo(Balloon balloon);

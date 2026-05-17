@@ -25,6 +25,20 @@ public class MonkeySpawner {
             return Optional.empty();
         }
 
+        Optional<MonkeyType> possibleMonkeyThatWouldBePlaced = switch (name) {
+            case "dart" -> Optional.of(MonkeyType.DART);
+            case "ice" -> Optional.of(MonkeyType.ICE);
+            case "cannon" -> Optional.of(MonkeyType.CANNON);
+            case "sniper" -> Optional.of(MonkeyType.SNIPER);
+            case "dartling" -> Optional.of(MonkeyType.DARTLING);
+            default -> Optional.empty();
+        };
+
+        if (possibleMonkeyThatWouldBePlaced.isPresent() && possibleMonkeyThatWouldBePlaced.get().getCost()> Game.getGold()) {
+            return Optional.empty();
+        }
+
+        Game.setGold(Game.getGold() - possibleMonkeyThatWouldBePlaced.get().getCost());
         return switch (name) {
             case "dart" -> Optional.of(new DartMonkey(pixelPos));
             case "ice" -> Optional.of(new IceMonkey(pixelPos));

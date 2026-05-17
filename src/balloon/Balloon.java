@@ -109,6 +109,17 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
     }
 
     @Override
+    public void takeDamage(Projectile projectile) {
+        int nextHp = this.getHp() - projectile.getDamage();
+        this.setHp(Math.max(nextHp, 0));
+
+        if (!isAlive()) {
+            Game.addGold(this.goldForKill);
+            this.hide();
+        }
+    }
+
+    @Override
     public void absorbEffect(Projectile projectile) {
         projectile.applyEffectTo(this);
     }
@@ -158,5 +169,9 @@ public abstract class Balloon extends GameObject implements ITickable, ITargetab
     public void applyPoisonDamage(int poisonDamage) {
         this.poisonTickDamage = poisonDamage;
         this.poisonTick++;
+    }
+
+    public int getGoldForKill() {
+        return this.goldForKill;
     }
 }
