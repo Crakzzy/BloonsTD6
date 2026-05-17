@@ -111,7 +111,6 @@ public class Game {
 
     public void click(int x, int y) {
         Optional<Monkey> monkey = MonkeySpawner.tryPlaceMonkey(Game.currentlySelectedMonkey, x, y);
-        System.out.println("monkey: " + monkey);
         if (monkey.isEmpty()) return;
         Game.addMonkey(monkey.get());
     }

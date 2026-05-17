@@ -3,11 +3,12 @@ package ui.pickers;
 import fri.shapesge.Image;
 import fri.shapesge.Square;
 import fri.shapesge.TextBlock;
+import monkey.MonkeyType;
 import utils.Vector2D;
 
 public class MonkeyPickersFactory {
     private static MonkeyPickersFactory instance;
-    private static final String[] MONKEYS = new String[]{"dart", "ice", "cannon", "sniper", "dartling"};
+    private static final MonkeyType[] MONKEYS = MonkeyType.values();
 
     private MonkeyPickersFactory() {
     }
@@ -43,8 +44,8 @@ public class MonkeyPickersFactory {
             background.changeColor("light gray");
             background.makeVisible();
 
-            int price = (i + 1) * 100;
-            new MonkeyPicker(MonkeyPickersFactory.MONKEYS[i], price, position);
+            int price = MonkeyType.valueOf(MONKEYS[i].name()).getCost();
+            new MonkeyPicker(MonkeyPickersFactory.MONKEYS[i].name(), price, position);
 
             int textX = rectX + 10;
             int textY = rectY + rectSize + 15;

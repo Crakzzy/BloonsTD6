@@ -25,27 +25,31 @@ public class MonkeySpawner {
             return Optional.empty();
         }
 
-        Optional<MonkeyType> possibleMonkeyThatWouldBePlaced = switch (name) {
-            case "dart" -> Optional.of(MonkeyType.DART);
-            case "ice" -> Optional.of(MonkeyType.ICE);
-            case "cannon" -> Optional.of(MonkeyType.CANNON);
-            case "sniper" -> Optional.of(MonkeyType.SNIPER);
-            case "dartling" -> Optional.of(MonkeyType.DARTLING);
-            default -> Optional.empty();
+        MonkeyType monkeyType = switch (name.toLowerCase()) {
+            case "dart" -> MonkeyType.DART;
+            case "ice" -> MonkeyType.ICE;
+            case "cannon" -> MonkeyType.CANNON;
+            case "sniper" -> MonkeyType.SNIPER;
+            case "dartling" -> MonkeyType.DARTLING;
+            default -> null;
         };
 
-        if (possibleMonkeyThatWouldBePlaced.isPresent() && possibleMonkeyThatWouldBePlaced.get().getCost()> Game.getGold()) {
+        if (monkeyType == null) {
             return Optional.empty();
         }
 
-        Game.setGold(Game.getGold() - possibleMonkeyThatWouldBePlaced.get().getCost());
-        return switch (name) {
-            case "dart" -> Optional.of(new DartMonkey(pixelPos));
-            case "ice" -> Optional.of(new IceMonkey(pixelPos));
-            case "cannon" -> Optional.of(new Cannon(pixelPos));
-            case "sniper" -> Optional.of(new SniperMonkey(pixelPos));
-            case "dartling" -> Optional.of(new DartlingMonkey(pixelPos));
-            default -> Optional.empty();
+        if (monkeyType.getCost() > Game.getGold()) {
+            return Optional.empty();
+        }
+
+        Game.setGold(Game.getGold() - monkeyType.getCost());
+
+        return switch (monkeyType) {
+            case DART -> Optional.of(new DartMonkey(pixelPos));
+            case ICE -> Optional.of(new IceMonkey(pixelPos));
+            case CANNON -> Optional.of(new Cannon(pixelPos));
+            case SNIPER -> Optional.of(new SniperMonkey(pixelPos));
+            case DARTLING -> Optional.of(new DartlingMonkey(pixelPos));
         };
     }
 }
