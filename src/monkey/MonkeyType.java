@@ -8,9 +8,9 @@ public enum MonkeyType {
     SNIPER(20, 350, Integer.MAX_VALUE, 2);
 
     private int damage;
-    private int cost;
-    private int range;
-    private int shotsPerSecond;
+    private final int cost;
+    private final int range;
+    private final int shotsPerSecond;
 
     MonkeyType(int damage, int cost, int range, int shotsPerSecond) {
         this.damage = damage;
@@ -23,31 +23,11 @@ public enum MonkeyType {
         return this.cost;
     }
 
-    public void setCost(int cost) {
-        this.cost = cost;
-    }
-
-    public int getDamage() {
-        return this.damage;
-    }
-
-    public void setDamage(int damage) {
-        this.damage = damage;
-    }
-
     public int getRange() {
         return this.range;
     }
 
-    public void setRange(int range) {
-        this.range = range;
-    }
-
     public int getShotsPerSecond() {
         return this.shotsPerSecond;
-    }
-
-    public void setShotsPerSecond(int shotsPerSecond) {
-        this.shotsPerSecond = shotsPerSecond / 60;
     }
 }

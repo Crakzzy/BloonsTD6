@@ -6,12 +6,10 @@ import fri.shapesge.Image;
 public abstract class GameObject {
     private Vector2D position;
     private final Image image;
-    private final int angle;
 
     public GameObject(Vector2D position, Image image, int angle) {
         this.position = position;
         this.image = image;
-        this.angle = angle;
 
         if (this.image != null) {
             this.image.changePosition(position.getX(), position.getY());
@@ -56,10 +54,6 @@ public abstract class GameObject {
         this.image.changeAngle(finalAngle);
 
         return finalAngle;
-    }
-
-    public int getAngle() {
-        return this.angle;
     }
 
     public Image getImage() {

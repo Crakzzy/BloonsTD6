@@ -10,8 +10,8 @@ import utils.ITickable;
 import utils.Vector2D;
 
 public abstract class Projectile extends GameObject implements ITickable {
-    private int damage;
-    private int speed;
+    private final int damage;
+    private final int speed;
     private final Manager manager;
     private final Balloon target;
 
